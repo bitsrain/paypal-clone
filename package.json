@@ -1,0 +1,17 @@
+{
+  "name": "paypal-clone",
+  "version": "1.0.0",
+  "description": "Paypal Clone",
+  "main": "index.js",
+  "scripts": {
+    "backend": "npm run dev -w backend",
+    "frontend": "npm run start -w frontend",
+    "start": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "author": "KJS",
+  "license": "ISC",
+  "workspaces": ["./backend", "./frontend"],
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
