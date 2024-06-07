@@ -19,7 +19,7 @@ export const authenticatedState = {
 const authReducer = (state = unauthenticatedState, action) => {
   switch (action.type) {
     case AUTHENTICATE:
-      setSession(action.payload);
+      setSession(action.payload); // payload is the token
 
       return {
         ...state,

@@ -9,12 +9,12 @@ const router = express.Router();
 router.post('/login', async (req, res, next) => {
   passport.authenticate('login', { session: false }, async (err, user, info) => {
     if (err || !user) {
-      return res.status(400).json({ message: 'Invalid credentials' });
+      return res.status(400).json({ code: 'INVALID_CREDENTIALS' });
     }
 
     req.login(user, { session: false }, (err) => {
       if (err) {
-        return res.status(500).json({ message: 'Internal server error' });
+        return res.status(500).json({ code: 'SERVER_ERROR' });
       }
 
       const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);

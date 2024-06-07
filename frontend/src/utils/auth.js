@@ -9,3 +9,7 @@ export const deleteSession = () => {
   axios.defaults.headers.common['Authorization'] = '';
   localStorage.removeItem('token');
 };
+
+export const login = (payload) => {
+  return axios.post('/auth/login', payload);
+};

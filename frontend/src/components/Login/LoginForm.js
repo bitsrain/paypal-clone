@@ -1,63 +1,92 @@
-// LoginForm.jsx
-import React from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Form, Input, Button, Alert } from 'antd';
+import { Message, useLocalize } from 'localize-react';
+import { login } from '../../utils/auth';
+import { authenticate } from '../../actions';
 import './LoginForm.scss';
 
 const LoginForm = () => {
-    const onFinish = (values) => {
-        console.log('Success:', values);
-    };
+  const { translate: tr } = useLocalize();
+  const dispatch = useDispatch();
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
+  const onSubmit = async (values) => {
+    setSubmitting(true);
+    setErrorMessage(null);
 
-    return (
-        <div className="login-form-container">
-            <Form
-                name="login"
-                initialValues={{ remember: true }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                className="login-form"
-            >
-              <p role="img" aria-label="PayPal Logo" class="paypal-logo paypal-logo-long"></p>
-              <Form.Item
-                  name="email"
-                  rules={[{ required: true, message: 'Please input your email or mobile number!' }]}
-              >
-                  <Input placeholder="Email or mobile number" />
-              </Form.Item>
+    try {
+      const res = await login(values);
+      dispatch(authenticate(res.data.token));
+    } catch (err) {
+      console.error(err);
+      setErrorMessage(tr(`login.msg.${err?.response?.data?.code || 'UNKNOWN'}`));
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
-              <Form.Item
-                  name="password"
-                  rules={[{ required: true, message: 'Please input your password!' }]}
-              >
-                  <Input.Password placeholder="Password" />
-              </Form.Item>
+  const onSubmitFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
 
-              <Form.Item>
-                  <a className="login-form-forgot" href="">
-                      Forgot password?
-                  </a>
-              </Form.Item>
+  return (
+    <div className="login-form-container">
+      <Form
+        name="login"
+        initialValues={{ remember: true }}
+        onFinish={onSubmit}
+        onFinishFailed={onSubmitFailed}
+        disabled={submitting}
+        className="login-form"
+      >
+        <p role="img" aria-label="PayPal Logo" className="paypal-logo paypal-logo-long"></p>
 
-              <Form.Item>
-                  <Button type="primary" htmlType="submit" className="login-form-button">
-                      Log In
-                  </Button>
-              </Form.Item>
+        {errorMessage && (
+          <Alert
+            description={errorMessage}
+            type="error"
+            className="error-alert"
+          />
+        )}
+        
+        <Form.Item
+          name="email"
+          rules={[{ required: true, message: tr('login.msg.email_required') }]}
+        >
+          <Input placeholder={tr('login.email')} />
+        </Form.Item>
 
-              <div className="or-separator">or</div>
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: tr('login.msg.password_required') }]}
+        >
+          <Input.Password placeholder={tr('login.password')} />
+        </Form.Item>
 
-              <Form.Item>
-                  <Button type="default" className="signup-form-button">
-                      Sign Up
-                  </Button>
-              </Form.Item>
-            </Form>
-        </div>
-    );
+        <Form.Item>
+          <a className="login-form-forgot" href="">
+            {tr('login.forgot_password')}
+          </a>
+        </Form.Item>
+
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className="login-form-button">
+            {tr('login.submit')}
+          </Button>
+        </Form.Item>
+
+        <div className="or-separator">or</div>
+
+        <Form.Item>
+          <Button type="default" className="signup-form-button">
+            {tr('login.sign_up')}
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
 };
 
 export default LoginForm;
