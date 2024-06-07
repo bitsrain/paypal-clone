@@ -1,0 +1,47 @@
+/* LoginForm.scss */
+.login-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  .login-form {
+      width: 300px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+      .login-form-forgot {
+          float: right;
+      }
+
+      .login-form-button, .signup-form-button {
+          width: 100%;
+      }
+
+      .or-separator {
+          text-align: center;
+          margin: 20px 0;
+          position: relative;
+
+          &::before,
+          &::after {
+              content: '';
+              position: absolute;
+              top: 50%;
+              width: 40%;
+              height: 1px;
+              background: #d9d9d9;
+          }
+
+          &::before {
+              left: 0;
+          }
+
+          &::after {
+              right: 0;
+          }
+      }
+  }
+}
