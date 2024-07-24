@@ -51,6 +51,23 @@ module.exports = (sequelize, Sequelize) => {
       });
   });
 
+  // define association here
+  User.associate = models => {
+    User.hasMany(models.balance, {
+      foreignKey: 'user_id',
+      as: 'balances',
+    });
+  };
+
+  User.afterCreate((user, options) => {
+    sequelize.models.balance.create({
+      user_id: user.id,
+      amount: 0,
+      currency: 'USD',
+      status: 'active',
+    });
+  });
+
   User.prototype.comparePassword = function(password) {
     // Your code here
     return bcrypt.compare(password, this.password);

@@ -1,4 +1,5 @@
 import ProtectedRoute from "../ProtectedRoute";
+import Dashboard from '../../components/Dashboard';
 
 export default [
   {
@@ -7,7 +8,7 @@ export default [
     children: [
       {
         path: "/",
-        element: <div>User Home Page</div>,
+        element: <Dashboard />,
       },
       {
         path: "/profile",
