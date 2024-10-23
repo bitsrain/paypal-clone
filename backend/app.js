@@ -1,12 +1,16 @@
 const express = require('express'); 
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
+const morgan = require('morgan');
 const routes = require('./routes');
+const { errorHandler } = require('./middlewares/errorMiddleware');
 
 require('dotenv').config();
 
 const app = express(); 
 const PORT = 5000; 
+
+app.use(morgan('dev'));
 
 app.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -24,6 +28,7 @@ const sequelize = require('./database');
 require('./config/passport');
 
 app.use('/', routes);
+// app.use(errorHandler);
 
 app.listen(PORT, (error) => {
 	if (!error) {

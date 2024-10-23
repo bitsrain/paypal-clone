@@ -1,0 +1,101 @@
+.send-money-form {
+  width: 350px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #fff;
+  text-align: center;
+
+  /* User info section */
+  .user-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    .ant-avatar {
+      margin-right: 15px;
+    }
+
+    .details {
+      text-align: left;
+
+      h4 {
+        font-size: 18px;
+        margin: 0;
+      }
+
+      .email-text {
+        font-size: 14px;
+        color: #6c757d;
+        margin: 0;
+      }
+    }
+  }
+
+  /* Amount input section */
+  .amount-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .amount-input {
+      font-size: 40px;
+      font-weight: bold;
+      border: none;
+      background-color: transparent;
+      box-shadow: none;
+    }
+
+    /* Centered currency indicator */
+    .currency-indicator {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background-color: #f0f0f0;
+      border-radius: 20px;
+      font-size: 16px;
+      color: #6c757d;
+      width: fit-content;
+      align-self: center;
+    }
+  }
+
+  /* Message input (textarea) */
+  .message-input {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 16px;
+    resize: none;
+  }
+
+  /* Action buttons */
+  .actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .next-btn, .cancel-btn {
+      width: 100%;
+      height: 45px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .next-btn {
+      background-color: #007bff;
+      border-radius: 6px;
+      color: #fff;
+    }
+
+    .cancel-btn {
+      border-radius: 6px;
+      color: #007bff;
+      background: none;
+      text-align: center;
+    }
+  }
+}

@@ -1,0 +1,33 @@
+.subnav {
+  display: flex;
+  background-color: #fff;
+  padding: 1.5rem 1.5rem 1.5rem 3.5rem;
+  box-shadow: rgba(0, 0, 0, 0.04) 0rem 0rem 0.5rem, rgba(0, 0, 0, 0.1) 0rem 0.125rem 1.125rem;
+
+  .button {
+    box-shadow: none;
+    margin-right: 10px;
+    border: 2px solid white;
+    background: none;
+    color: #000;
+    border-radius: 1.5rem;
+
+    font-size: min(1rem, 32px);
+    line-height: min(1.3125rem, 42px);
+
+    &:hover {
+      span { color: #000; }
+      border: 2px solid #1890ff;
+    }
+  }
+
+  .active {
+    .button {
+      span { 
+        color: rgb(5, 68, 181);
+      }
+      border: none !important;
+      box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+    }
+  }
+}

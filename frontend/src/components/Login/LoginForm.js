@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Form, Input, Button, Alert } from 'antd';
 import { Message, useLocalize } from 'localize-react';
 import { login } from '../../utils/auth';
-import { authenticate } from '../../actions';
+import { authenticate } from '../../actions/auth_actions';
 import './LoginForm.scss';
 
 const LoginForm = () => {

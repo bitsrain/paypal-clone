@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
+const { protect } = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
@@ -36,12 +37,11 @@ router.post(
   }
 );
 
-router.get('/profile', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  const user = await User.findByPk(req.user);
-  return res.json(user);
+router.get('/profile', protect, (req, res) => {
+  return res.json(req.user);
 });
 
-router.get('/protected', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/protected', protect, (req, res) => {
   res.json({ message: 'Protected route accessed successfully' });
 });
 

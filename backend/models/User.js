@@ -51,14 +51,6 @@ module.exports = (sequelize, Sequelize) => {
       });
   });
 
-  // define association here
-  User.associate = models => {
-    User.hasMany(models.balance, {
-      foreignKey: 'user_id',
-      as: 'balances',
-    });
-  };
-
   User.afterCreate((user, options) => {
     sequelize.models.balance.create({
       user_id: user.id,

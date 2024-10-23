@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { AUTHENTICATE, LOAD_PROFILE_REQUEST, LOAD_PROFILE_SUCCESS } from "../actions";
+import { AUTHENTICATE, LOAD_PROFILE_REQUEST, LOAD_PROFILE_SUCCESS } from "../actions/auth_actions";
 import { setSession } from "../utils/auth";
 
 export const unauthenticatedState = {

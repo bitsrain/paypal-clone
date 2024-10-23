@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { loadProfile } from "../actions";
+import { loadProfile } from "../actions/auth_actions";
 import { selectProfileDue } from "../reducers/auth_reducer";
 
 const ProtectedRoute = () => {
