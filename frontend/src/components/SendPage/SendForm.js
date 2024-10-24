@@ -5,32 +5,28 @@ import { Input, Button } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { setRecipient } from '../../actions/send_actions';
 import './SendForm.scss';
+import UserSearchInput from '../common/UserSearchInput';
 
 const SendForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [searchKey, setSearchKey] = useState('');
+  const [destUser, setDestUser] = useState();
   const handleNext = useCallback(() => {
-    dispatch(setRecipient(searchKey));
+    dispatch(setRecipient(destUser));
     navigate('/send/preview');
-  }, [searchKey]);
+  }, [destUser]);
 
   return (
     <div className="send-money-container">
       <h3 className="send-money-title">Send money</h3>
       <div className="send-money-input">
-        <Input
-          value={searchKey}
-          onChange={e => setSearchKey(e.target.value)}
-          placeholder="Name, username, email, mobile"
-          prefix={<SearchOutlined className="search-icon" />}
-        />
+        <UserSearchInput onSelect={setDestUser} />
       </div>
       <Button
         type="primary"
         className="send-money-button"
-        disabled={!searchKey}
+        disabled={!destUser}
         onClick={handleNext}
       >
         Next

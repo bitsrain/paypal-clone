@@ -1,16 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FileOutlined, BankOutlined, EllipsisOutlined } from '@ant-design/icons';
 import './QuickActions.scss';
 
 const QuickActions = () => {
   return (
     <div className="quick-actions">
-      <div className="quick-action">
+      <Link to="/invoices/edit" className="quick-action">
         <div className="icon-container">
           <FileOutlined />
         </div>
         <span className="action-text">Create an invoice</span>
-      </div>
+      </Link>
       <div className="quick-action">
         <div className="icon-container">
           <BankOutlined />

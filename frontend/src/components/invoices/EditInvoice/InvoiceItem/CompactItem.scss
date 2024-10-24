@@ -1,0 +1,88 @@
+.compact-item {
+  max-width: 500px;
+
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 10px;
+
+  .compact-fields {
+    display: flex;
+    gap: 20px;
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      border: 1px solid #d9d9d9;
+      border-radius: 8px;
+      padding: 10px 20px 10px 10px;
+  
+      label {
+        font-size: 16px;
+        color: #595959;
+        margin-bottom: 4px;
+      }
+  
+      .static-text {
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+
+    .title {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  
+    .total {
+      font-size: 18px;
+      font-weight: 600;
+      color: #001f3f;
+      margin-left: 20px;
+    }
+  }
+
+  /* Description and Actions in the same row */
+  .description-action-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+
+    /* Description will take up the remaining space */
+    .description {
+      flex: 1;
+      font-size: 14px;
+      color: gray;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .action-icons {
+      display: flex;
+      align-items: center;
+      margin-left: 10px;
+
+      .icon {
+        font-size: 18px;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .edit:hover {
+        color: #1890ff;
+      }
+
+      .delete:hover {
+        color: #ff4d4f;
+      }
+    }
+  }
+}

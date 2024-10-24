@@ -14,16 +14,10 @@ const Navbar = () => {
       </div>
       <Menu mode="horizontal" theme="dark" className="left-menu">
         <Menu.Item key="dashboard">
-          <Link to="/dashboard">Dashboard</Link>
-        </Menu.Item>
-        <Menu.Item key="finances">
-          <Link to="/finances">Finances</Link>
+          <Link to="/dashboard">Home</Link>
         </Menu.Item>
         <Menu.Item key="send-and-request">
-          <Link to="/send-and-request">Send and Request</Link>
-        </Menu.Item>
-        <Menu.Item key="deals">
-          <Link to="/deals">Deals</Link>
+          <Link to="/send">Send</Link>
         </Menu.Item>
         <Menu.Item key="wallet">
           <Link to="/wallet">Wallet</Link>

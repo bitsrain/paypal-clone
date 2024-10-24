@@ -1,9 +1,14 @@
 import ProtectedRoute from "../ProtectedRoute";
+
 import MainLayout from "../../components/common/MainLayout";
 import Dashboard from '../../components/Dashboard';
+
+import SendLayout from "../../components/SendPage/Layout";
 import SendPage from '../../components/SendPage';
 import SendPreview from '../../components/SendPage/Preview';
 import SendSuccess from '../../components/SendPage/Success';
+
+import EditInvoice from '../../components/invoices/EditInvoice';
 
 export default [
   {
@@ -20,7 +25,7 @@ export default [
       },
       {
         path: "/send",
-        element: <MainLayout />,
+        element: <SendLayout />,
         children: [
           {
             path: "",
@@ -36,6 +41,16 @@ export default [
           },
         ],
       },
+      {
+        path: "/invoices",
+        element: <MainLayout />,
+        children: [
+          {
+            path: "edit",
+            element: <EditInvoice />
+          }
+        ]
+      }
     ],
   },
 ];

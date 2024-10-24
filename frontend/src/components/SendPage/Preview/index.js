@@ -10,7 +10,7 @@ const { TextArea } = Input;
 const { Text } = Typography;
 
 const Preview = () => {
-  const recipient = useSelector(state => state.send.recipientEmail);
+  const recipient = useSelector(state => state.send.recipient);
   const sending = useSelector(state => state.send.sending);
   const transferSuccess = useSelector(state => state.send.success);
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const Preview = () => {
 
   const handleNext = () => {
     dispatch(
-      send(6, parseFloat(amount), 'USD', { message })
+      send(recipient.id, parseFloat(amount), 'USD', { message })
     );
   };
 
@@ -47,10 +47,10 @@ const Preview = () => {
         <Avatar size={50} style={{ backgroundColor: '#f23f5f' }}>JW</Avatar>
         <div className="details">
           <Typography.Title level={4} style={{ margin: 0 }}>
-            Jeremy Wang
+            {recipient?.full_name}
           </Typography.Title>
           <Text type="secondary" className="email-text">
-            {recipient}
+            {recipient?.email}
           </Text>
         </div>
       </div>

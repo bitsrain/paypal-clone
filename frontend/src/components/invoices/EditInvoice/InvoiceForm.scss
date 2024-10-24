@@ -1,0 +1,56 @@
+.invoice-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+
+  .form-section {
+    margin-bottom: 20px;
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+
+      .section-icon {
+        font-size: 20px;
+        color: #001f3f; /* Darker blue color */
+        margin-right: 10px;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        color: #001f3f;
+      }
+    }
+  }
+
+  .ant-input {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 15px;
+  }
+
+  .ant-collapse {
+    border: none;
+    background-color: #fff;
+  }
+
+  .ant-collapse-header {
+    font-size: 16px;
+    font-weight: 600;
+    color: #001f3f;
+    padding: 10px 0;
+  }
+
+  .ant-collapse-content-box {
+    padding: 0;
+  }
+
+  .ant-input-textarea-show-count {
+    font-size: 12px;
+    color: gray;
+  }
+}

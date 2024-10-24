@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { SET_RECIPIENT, SEND, SEND_SUCCESS, SEND_FAIL } from '../actions/send_actions';
 
 export const initialSendState = {
-  recipientEmail: null,
+  recipient: null,
   success: false,
   sending: false,
 };
@@ -12,7 +12,7 @@ const sendReducer = (state = initialSendState, { type, payload }) => {
     case SET_RECIPIENT:
       return {
         ...state,
-        recipientEmail: payload,
+        recipient: payload,
       };
     case SEND:
       return {

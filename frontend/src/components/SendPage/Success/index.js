@@ -11,7 +11,7 @@ const Success = () => {
 
   // Get the values from the Redux store
   const transfer = useSelector((state) => state.send.transfer);
-  const recipient = useSelector((state) => state.send.recipientEmail);
+  const recipient = useSelector((state) => state.send.recipient);
 
   const handleSendMore = () => {
     navigate('/send-money'); // Update with correct path
@@ -25,7 +25,7 @@ const Success = () => {
     <div className="success-message-container">
       <div className="message-box">
         <Text className="success-text">
-          You've sent {transfer?.amount} {transfer?.currency} to {recipient}
+          You've sent {transfer?.amount} {transfer?.currency} to {recipient?.full_name}
         </Text>
       </div>
       <div className="button-group">

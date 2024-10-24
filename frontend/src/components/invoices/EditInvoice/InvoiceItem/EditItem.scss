@@ -1,0 +1,120 @@
+.invoice-item-edit {
+  max-width: 500px;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 20px;
+
+  .inline-fields {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    .ant-form-item {
+      flex: 1;
+    }
+
+    .ant-input-number,
+    .ant-select-selector {
+      height: 48px;
+      font-size: 16px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .ant-input,
+  .ant-input-number,
+  .ant-select-selector {
+    border-radius: 6px;
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .ant-form-item-explain-error {
+    color: #ff4d4f;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  /* Tax, Discount, Date and Total section */
+  .tax-total-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+
+    .tax-discount-section {
+      a {
+        color: #1890ff;
+        font-weight: 500;
+        font-size: 16px;
+        // text-decoration: underline;
+        cursor: pointer;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #0073e6;
+        }
+      }
+    }
+
+    .total-section {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: right;
+      color: #001f3f;
+    }
+  }
+
+  /* Description TextArea */
+  .description-input {
+    resize: none; /* Disable resizing */
+    min-height: 120px; /* Minimum height for multiple lines */
+  }
+
+  .char-counter {
+    text-align: right;
+    color: #595959;
+    font-size: 12px;
+  }
+
+  .form-buttons {
+    display: flex;
+    justify-content: right; /* Align the buttons to the right */
+    gap: 20px; /* Add space between the buttons */
+
+    .cancel-btn {
+      background-color: #fff;
+      border: 2px solid #d9d9d9;
+      color: #595959;
+      height: 48px;
+      width: 150px;
+      font-size: 16px;
+      border-radius: 25px; /* Rounded corners to match the design */
+      font-weight: bold;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #f0f0f0; /* Slight hover effect */
+        border-color: #bfbfbf;
+      }
+    }
+
+    .add-btn {
+      background-color: #1890ff;
+      color: white;
+      height: 48px;
+      width: 150px;
+      font-size: 16px;
+      border-radius: 25px; /* Rounded corners to match the design */
+      font-weight: bold;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #0073e6; /* Darker blue hover effect */
+      }
+    }
+  }
+}

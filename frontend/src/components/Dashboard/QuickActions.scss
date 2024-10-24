@@ -10,6 +10,7 @@
     cursor: pointer;
     text-align: center;
     transition: all 0.2s ease;
+    text-decoration: none;
 
     &:hover .action-text {
       font-weight: bold; /* Bolden the text on hover */
