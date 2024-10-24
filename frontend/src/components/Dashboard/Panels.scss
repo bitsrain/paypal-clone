@@ -1,0 +1,30 @@
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+
+  .left-section, .right-section {
+    flex: 1;
+    padding: 20px;
+    max-width: 550px;
+  }
+
+  .right-section {
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+
+      .ant-btn-primary {
+        flex: 1;
+        margin-right: 10px;
+        height: 45px;
+      }
+
+      .ant-btn-ghost {
+        flex: 1;
+        height: 45px;
+      }
+    }
+  }
+}

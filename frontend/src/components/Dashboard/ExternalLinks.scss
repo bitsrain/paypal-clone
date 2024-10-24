@@ -1,0 +1,57 @@
+.external-links {
+  background-color: #fff;
+  padding: 20px;
+
+  .links-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .links-title {
+      font-size: 18px; /* Title size */
+      font-weight: 600;
+      color: #001f3f;
+    }
+
+    .menu-icon {
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+
+  .link-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px; /* Spacing between links */
+
+    .link-image {
+      width: 50px;
+      height: auto;
+      margin-right: 15px;
+    }
+
+    .link-details {
+      display: flex;
+      flex-direction: column;
+
+      .link-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: #001f3f;
+      }
+
+      .link-type {
+        font-size: 12px;
+        color: gray;
+      }
+    }
+  }
+
+  .add-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0070f3; /* Blue for the link */
+    cursor: pointer;
+  }
+}

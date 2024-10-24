@@ -1,0 +1,54 @@
+.balance-card {
+  background-color: #fff; /* Ensure white background */
+  border-radius: 10px; /* Rounded corners */
+  padding: 20px;
+  border: 1px solid #e0e0e0; /* Gray outline instead of shadow */
+
+  .balance-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .balance-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #001f3f; /* Dark text color */
+      text-align: left; /* Ensure left alignment */
+    }
+
+    .menu-icon {
+      font-size: 20px;
+      cursor: pointer;
+      color: #001f3f; /* Dark icon color */
+    }
+  }
+
+  .balance-amount {
+    font-size: 36px;
+    font-weight: bold;
+    color: #001f3f; /* Bold and dark */
+    margin-bottom: 8px;
+    text-align: left; /* Align amount to the left */
+  }
+
+  .balance-status {
+    font-size: 14px;
+    color: gray;
+    margin-bottom: 20px;
+    text-align: left; /* Align status to the left */
+  }
+
+  .balance-action {
+    text-align: left; /* Align button to the left */
+
+    .ant-btn-primary {
+      background-color: #0070f3; /* Blue background */
+      border-color: #0070f3;
+      padding: 0 20px;
+      font-size: 14px;
+      border-radius: 20px; /* Rounded button */
+      display: inline-block; /* Ensure the button is not full-width */
+    }
+  }
+}
