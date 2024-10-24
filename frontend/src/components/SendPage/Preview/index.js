@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Input, Avatar, Typography, Spin } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { send } from '../../../actions/send_actions';
 import './index.scss';
@@ -10,8 +11,10 @@ const { Text } = Typography;
 
 const Preview = () => {
   const recipient = useSelector(state => state.send.recipientEmail);
-  const isSending = useSelector(state => state.send.isSending);
+  const sending = useSelector(state => state.send.sending);
+  const transferSuccess = useSelector(state => state.send.success);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [amount, setAmount] = useState('0.00');
   const [message, setMessage] = useState('');
@@ -29,6 +32,13 @@ const Preview = () => {
       send(6, parseFloat(amount), 'USD', { message })
     );
   };
+
+  // Navigate to success page upon successful transfer
+  useEffect(() => {
+    if (transferSuccess) {
+      navigate('/send/success');
+    }
+  }, [transferSuccess, navigate]);
 
   return (
     <div className="send-money-form">
@@ -88,7 +98,7 @@ const Preview = () => {
         </Button>
       </div>
 
-      {isSending && <Spin spinning fullscreen />}
+      {sending && <Spin spinning fullscreen />}
     </div>
   );
 };

@@ -1,0 +1,46 @@
+.success-message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+
+  .message-box {
+    padding: 30px 40px; /* Increase vertical padding for better spacing */
+    border: 1px solid #e0e0e0; /* Add subtle border */
+    border-radius: 10px; /* Soft rounded corners */
+    margin-bottom: 30px;
+    text-align: center;
+    max-width: 400px; /* Restrict the width to center it properly */
+
+    .success-text {
+      font-size: 24px; /* Keep the text large */
+      font-weight: 600; /* Keep bold for visibility */
+      color: #001f3f; /* Darker color for better contrast */
+      line-height: 1.5; /* Keep good line spacing */
+    }
+  }
+
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .send-more-button {
+      width: 250px;
+      background-color: #0070f3;
+      border-radius: 30px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      height: 45px; /* Adjust button height */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .summary-button {
+      font-size: 16px;
+      color: #0070f3;
+    }
+  }
+}

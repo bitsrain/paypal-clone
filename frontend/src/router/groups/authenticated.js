@@ -3,6 +3,7 @@ import MainLayout from "../../components/common/MainLayout";
 import Dashboard from '../../components/Dashboard';
 import SendPage from '../../components/SendPage';
 import SendPreview from '../../components/SendPage/Preview';
+import SendSuccess from '../../components/SendPage/Success';
 
 export default [
   {
@@ -28,6 +29,10 @@ export default [
           {
             path: "preview",
             element: <SendPreview />,
+          },
+          {
+            path: "success",
+            element: <SendSuccess />,
           },
         ],
       },
