@@ -1,11 +1,11 @@
-export const SET_INVOICE = 'invoice/set';
-export const CLEAR_INVOICE = 'invoice/clear';
+export const SET_DRAFT = 'invoice/set_draft';
+export const CLEAR_DRAFT = 'invoice/clear_draft';
 
-export const setInvoice = payload => ({
-  type: SET_INVOICE,
+export const setDraft = payload => ({
+  type: SET_DRAFT,
   payload,
 });
 
-export const clearInvoice = () => ({
-  type: CLEAR_INVOICE,
+export const clearDraft = () => ({
+  type: CLEAR_DRAFT,
 });

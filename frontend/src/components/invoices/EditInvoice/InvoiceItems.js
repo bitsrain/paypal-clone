@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { uniqKeyGen } from '../../../utils/generators';
 import InvoiceItem from './InvoiceItem';
 import './InvoiceItems.scss';
@@ -16,6 +16,10 @@ const mapifyItems = items => {
 const InvoiceItems = ({ initialItems = [], onChange }) => {
   const [editing, setEditing] = useState(false);
   const [itemsMap, setItemsMap] = useState(mapifyItems(initialItems));
+
+  useEffect(() => {
+    onChange(Object.values(itemsMap));
+  }, [itemsMap]);
 
   const handleAddItem = () => {
     setItemsMap(

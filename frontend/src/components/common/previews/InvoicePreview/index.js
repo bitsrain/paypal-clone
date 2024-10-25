@@ -45,13 +45,15 @@ const InvoicePreview = ({ invoice }) => {
       </div>
 
       {/* Bill To Section */}
-      <div className="bill-to-section">
-        <h3 className="bill-to-title">Bill to</h3>
-        <div className="bill-to">
-          <div>{billTo.name}</div>
-          <div>{billTo.email}</div>
+      {!!billTo && (
+        <div className="bill-to-section">
+          <h3 className="bill-to-title">Bill to</h3>
+          <div className="bill-to">
+            <div>{billTo.name}</div>
+            <div>{billTo.email}</div>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Items Section */}
       <div className="items-section">
@@ -59,7 +61,7 @@ const InvoicePreview = ({ invoice }) => {
         {items.map((item, index) => (
           <div className="item" key={index}>
             <div className="item-header">
-              <div className="item-title">{item.title}</div>
+              <div className="item-title">{item.name}</div>
               <div className="item-total">${item.total.toLocaleString()}</div>
             </div>
             <div className="item-details">

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Select, Spin } from 'antd';
 import debounce from 'lodash.debounce';
 import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
@@ -12,6 +12,10 @@ const UserSearchInput = ({ onSelect }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+
+  useEffect(() => {
+    onSelect(selectedUser);
+  }, [selectedUser]);
 
   // Define the debounced fetch function using useCallback to memoize it
   const debouncedFetchUsers = useCallback(
@@ -49,10 +53,6 @@ const UserSearchInput = ({ onSelect }) => {
     const selectedUser = users.find((user) => user.id === value); // Use the ID to find the full user object
     setSelectedUser(selectedUser);
     setQuery(selectedUser.full_name); // Set the selected user's full name in the input field
-
-    if (onSelect) {
-      onSelect(selectedUser); // Trigger the onSelect prop with the selected user object
-    }
   };
 
   // Clear the selected user

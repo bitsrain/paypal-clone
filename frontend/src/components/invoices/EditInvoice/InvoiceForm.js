@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { Input, Collapse } from 'antd';
 import { UserOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 
+import { setDraft } from '../../../actions/invoice_actions';
 import UserSearchInput from '../../common/UserSearchInput';
 import './InvoiceForm.scss';
 import InvoiceItems from './InvoiceItems';
@@ -9,6 +11,25 @@ import InvoiceItems from './InvoiceItems';
 const { Panel } = Collapse;
 
 const InvoiceForm = () => {
+  const [recipient, setRecipient] = useState();
+  const [sellerNote, setSellerNote] = useState();
+  const [items, setItems] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      setDraft({
+        recipient,
+        items: items.filter(item => !!item),
+        sellerNote,
+      })
+    );
+  }, [recipient, sellerNote, items]);
+
+  const handleNoteChange = useCallback((e) => {
+    setSellerNote(e.target.value);
+  }, []);
+
   return (
     <div className="invoice-form">
       {/* Section: Who are you billing? */}
@@ -17,7 +38,7 @@ const InvoiceForm = () => {
           <UserOutlined className="section-icon" />
           <h3>Who are you billing?</h3>
         </div>
-        <UserSearchInput />
+        <UserSearchInput onSelect={setRecipient} />
       </div>
 
       {/* Section: What are they paying for? */}
@@ -26,7 +47,7 @@ const InvoiceForm = () => {
           <ShoppingCartOutlined className="section-icon" />
           <h3>What are they paying for?</h3>
         </div>
-        <InvoiceItems onChange={() => true} />
+        <InvoiceItems onChange={setItems} />
       </div>
 
       {/* Section: Notes and attachments (Collapsible) */}
@@ -36,6 +57,8 @@ const InvoiceForm = () => {
             rows={4}
             maxLength={700}
             placeholder="Note to your customer"
+            value={sellerNote}
+            onChange={handleNoteChange}
             showCount
           />
         </Panel>

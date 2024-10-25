@@ -24,11 +24,9 @@ const EditItem = ({ initialValues = DEFAULT_VALUES, onAdd, onCancel }) => {
   const [form] = Form.useForm();
   const [type, setType] = useState(initialValues.type);
   const [total, setTotal] = useState(0);
-  const [descriptionLength, setDescriptionLength] = useState(0);
 
   useEffect(() => {
     calculateTotal(initialValues);
-    setDescriptionLength(initialValues.description?.length || 0);
     setType(initialValues.type);
   }, [initialValues]);
 
@@ -42,11 +40,6 @@ const EditItem = ({ initialValues = DEFAULT_VALUES, onAdd, onCancel }) => {
   // Handle form changes
   const handleFormChange = (_, allValues) => {
     calculateTotal(allValues);
-  };
-
-  // Handle description input change to update the character count
-  const handleDescriptionChange = (e) => {
-    setDescriptionLength(e.target.value.length);
   };
 
   // Handle form submission
@@ -121,15 +114,13 @@ const EditItem = ({ initialValues = DEFAULT_VALUES, onAdd, onCancel }) => {
         <Form.Item
           name="description"
           label="Description (Optional)"
-          extra={<div className="char-counter">{descriptionLength}/400</div>}
         >
           <TextArea
             rows={4}
             maxLength={400}
             placeholder="Enter description"
-            onChange={handleDescriptionChange}
             className="description-input"
-            showCount={false}
+            showCount
           />
         </Form.Item>
 
