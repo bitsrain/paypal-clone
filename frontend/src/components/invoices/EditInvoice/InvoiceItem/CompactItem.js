@@ -3,10 +3,12 @@ import { EditOutlined, CloseOutlined } from '@ant-design/icons';
 import './CompactItem.scss';
 
 const CompactItem = ({ values, onEdit, onDelete }) => {
-  const { type, quantity, rate, title, description } = values;
+  if (!values) return null;
+
+  const { type, quantity, price, name, description } = values;
 
   // Calculate the total based on quantity and rate
-  const total = quantity * rate;
+  const total = quantity * price;
 
   return (
     <div className="compact-item">
@@ -19,11 +21,11 @@ const CompactItem = ({ values, onEdit, onDelete }) => {
 
         <div className="field">
           <label>{type === 'goods' ? 'Price per unit' : 'Rate'}</label>
-          <span className="static-text">${rate.toFixed(2)}</span>
+          <span className="static-text">${price.toFixed(2)}</span>
         </div>
 
         <div className="title">
-          {title}
+          {name}
         </div>
 
         {/* Total Calculation */}

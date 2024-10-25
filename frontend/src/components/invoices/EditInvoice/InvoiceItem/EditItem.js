@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Radio, Button, Select, InputNumber } from 'antd';
 import './EditItem.scss';
 
@@ -20,11 +20,17 @@ const VALIDATION_RULES = {
 
 const DEFAULT_VALUES = { type: 'services', quantity: 5, currency: 'USD' };
 
-const EditItem = ({ initialValues, onAdd, onCancel }) => {
+const EditItem = ({ initialValues = DEFAULT_VALUES, onAdd, onCancel }) => {
   const [form] = Form.useForm();
-  const [type, setType] = useState('goods');
+  const [type, setType] = useState(initialValues.type);
   const [total, setTotal] = useState(0);
   const [descriptionLength, setDescriptionLength] = useState(0);
+
+  useEffect(() => {
+    calculateTotal(initialValues);
+    setDescriptionLength(initialValues.description?.length || 0);
+    setType(initialValues.type);
+  }, [initialValues]);
 
   // Calculate total in real-time based on Qty/Hours and Rate/Price per unit
   const calculateTotal = (values) => {
@@ -46,7 +52,7 @@ const EditItem = ({ initialValues, onAdd, onCancel }) => {
   // Handle form submission
   const onFinish = (values) => {
     onAdd(values); // Trigger the callback with the form values
-    form.resetFields(); // Reset the form after submission
+    // form.resetFields();
   };
 
   return (
@@ -56,7 +62,7 @@ const EditItem = ({ initialValues, onAdd, onCancel }) => {
         layout="vertical"
         onFinish={onFinish}
         onValuesChange={handleFormChange}
-        initialValues={initialValues || DEFAULT_VALUES}
+        initialValues={initialValues}
       >
         {/* Goods/Services Toggle */}
         <Form.Item name="type">

@@ -4,8 +4,8 @@ import { UserOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 
 import UserSearchInput from '../../common/UserSearchInput';
 import './InvoiceForm.scss';
-import InvoiceItem from './InvoiceItem/EditItem';
-import CompactItem from './InvoiceItem/CompactItem';
+import InvoiceItem from './InvoiceItem';
+import InvoiceItems from './InvoiceItems';
 
 const { Panel } = Collapse;
 
@@ -35,9 +35,7 @@ const InvoiceForm = () => {
           <ShoppingCartOutlined className="section-icon" />
           <h3>What are they paying for?</h3>
         </div>
-        <Input size="large" placeholder="Item name" />
-        <InvoiceItem />
-        <CompactItem values={values} />
+        <InvoiceItems onChange={() => true} />
       </div>
 
       {/* Section: Notes and attachments (Collapsible) */}

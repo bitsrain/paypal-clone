@@ -45,21 +45,6 @@
     align-items: center;
     margin: 20px 0;
 
-    .tax-discount-section {
-      a {
-        color: #1890ff;
-        font-weight: 500;
-        font-size: 16px;
-        // text-decoration: underline;
-        cursor: pointer;
-        transition: color 0.3s ease;
-
-        &:hover {
-          color: #0073e6;
-        }
-      }
-    }
-
     .total-section {
       font-size: 18px;
       font-weight: bold;
