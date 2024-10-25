@@ -1,0 +1,167 @@
+.invoice-preview {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  color: #001f3f;
+
+  h3 {
+    margin-top: 0px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .sender-info {
+      font-size: 14px;
+      line-height: 1.5;
+      
+      .name {
+        margin-bottom: 5px;
+      }
+    }
+
+    .invoice-info {
+      text-align: right;
+      font-size: 14px;
+      line-height: 1.5;
+
+      .invoice-number {
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+
+      .issued, .due {
+        font-size: 14px;
+        color: #595959;
+      }
+    }
+  }
+
+  .total-amount {
+    text-align: right; /* Aligns total to the right */
+    font-size: 36px;
+    font-weight: bold;
+    color: #001f3f;
+    margin-bottom: 15px;
+  }
+
+  .contact-info {
+    display: flex;
+    justify-content: flex-start; /* Aligns email to the left */
+    align-items: center;
+    margin-bottom: 15px;
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 5px;
+
+    .email {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #595959;
+
+      i {
+        margin-right: 10px; /* Adds space between the icon and the email */
+        font-size: 16px;
+        color: #001f3f;
+      }
+    }
+  }
+
+  .bill-to-section {
+    margin-bottom: 20px;
+
+    .bill-to-title {
+      margin-bottom: 5px;
+    }
+
+    .bill-to {
+      font-size: 14px;
+      color: #595959;
+    }
+  }
+
+  .items-section {
+    margin-top: 50px;
+    margin-bottom: 30px;
+
+    .item {
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 10px;
+
+      .item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .item-title {
+          font-weight: bold;
+          font-size: 16px;
+        }
+
+        .item-total {
+          font-size: 16px;
+          font-weight: bold;
+          color: #001f3f;
+        }
+      }
+
+      .item-details {
+        font-size: 14px;
+        color: #595959;
+        margin-top: 10px;
+        line-height: 1.6;
+      }
+    }
+  }
+
+  .summary-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    border-bottom: 1px solid #e8e8e8;
+
+    .subtotal, .total {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      min-width: 60%;
+
+      .label {
+        color: #001f3f;
+        font-size: 14px;
+      }
+
+      .amount {
+        font-size: 14px;
+      }
+    }
+
+    .subtotal {
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .total {
+      font-weight: bold;
+    }
+  }
+
+  .note-section {
+    margin-top: 20px;
+    padding-top: 20px;
+
+    .note-title {
+      margin-bottom: 5px;
+    }
+
+    .note-content {
+      font-size: 14px;
+      color: #595959;
+      line-height: 1.6;
+    }
+  }
+}

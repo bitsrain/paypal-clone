@@ -4,18 +4,9 @@ import { UserOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 
 import UserSearchInput from '../../common/UserSearchInput';
 import './InvoiceForm.scss';
-import InvoiceItem from './InvoiceItem';
 import InvoiceItems from './InvoiceItems';
 
 const { Panel } = Collapse;
-
-const values = {
-  type: 'goods', // Can be 'goods' or 'services'
-  quantity: 5,
-  rate: 50,
-  title: "Product development milestone accomplishment",
-  description: "Design work and implementation Design work and implementation Design work and implementation"
-};
 
 const InvoiceForm = () => {
   return (
