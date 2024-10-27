@@ -56,8 +56,16 @@ module.exports = (sequelize, Sequelize) => {
       type: DataTypes.DATE,
       allowNull: true,
     },
+    notes: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    ship_goods: {
+      type: DataTypes.BOOLEAN,
+      allowNull:false,
+      defaultValue: false,
+    },
   });
 
   return Invoice;
 };
-

@@ -3,7 +3,7 @@ import { Button, Dropdown, Menu } from 'antd';
 import { DownOutlined, LeftOutlined } from '@ant-design/icons';
 import './InvoiceToolbar.scss';
 
-const InvoiceToolbar = () => {
+const InvoiceToolbar = ({ onSend }) => {
   const moreActionsMenu = (
     <Menu>
       <Menu.Item key="1">Share link to invoice</Menu.Item>
@@ -38,7 +38,7 @@ const InvoiceToolbar = () => {
             More actions <DownOutlined />
           </Button>
         </Dropdown>
-        <Button type="primary" className="send-btn">
+        <Button type="primary" className="send-btn" onClick={onSend}>
           Send
         </Button>
       </div>

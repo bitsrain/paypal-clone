@@ -5,6 +5,7 @@ const sequelize = require('../database');
 const UserModel = require('./User');
 const BalanceModel = require('./Balance');
 const InvoiceModel = require('./Invoice');
+const InvoiceItemModel = require('./InvoiceItem');
 const TransactionModel = require('./Transaction');
 const ActivityModel = require('./Activity');
 const TransferModel = require('./Transfer');
@@ -12,6 +13,7 @@ const TransferModel = require('./Transfer');
 const User = UserModel(sequelize, Sequelize);
 const Balance = BalanceModel(sequelize, Sequelize);
 const Invoice = InvoiceModel(sequelize, Sequelize);
+const InvoiceItem = InvoiceItemModel(sequelize, Sequelize);
 const Transaction = TransactionModel(sequelize, Sequelize);
 const Activity = ActivityModel(sequelize, Sequelize);
 const Transfer = TransferModel(sequelize, Sequelize);
@@ -70,4 +72,6 @@ module.exports = {
   Transaction,
   Activity,
   Transfer,
+  Invoice,
+  InvoiceItem,
 };

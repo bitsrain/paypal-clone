@@ -1,8 +1,11 @@
 import { createSelector } from 'reselect';
-import { SET_DRAFT, CLEAR_DRAFT } from '../actions/invoice_actions';
+import { SET_DRAFT, CLEAR_DRAFT, SEND, SEND_SUCCESS, SEND_FAIL, CLEAR_SEND_STATUS } from '../actions/invoice_actions';
 
 export const initialInvoiceState = {
   draft: null,
+  sentInvoice: null,
+  sending: false,
+  sendSuccess: false,
 };
 
 const invoiceReducer = (state = initialInvoiceState, { type, payload }) => {
@@ -17,6 +20,25 @@ const invoiceReducer = (state = initialInvoiceState, { type, payload }) => {
         ...state,
         draft: null,
       };
+    case SEND:
+      return {
+        ...state,
+        sending: true,
+      };
+    case SEND_SUCCESS:
+      return {
+        ...state,
+        success: true,
+        sentInvoice: payload.invoice,
+        sending: false,
+      };
+    case SEND_FAIL:
+      return {
+        ...state,
+        sending: false,
+      };
+    case CLEAR_SEND_STATUS:
+      return initialInvoiceState;
     default:
       return state;
   }
