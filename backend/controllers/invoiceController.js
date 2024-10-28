@@ -125,6 +125,8 @@ exports.payInvoice = async (req, res) => {
     balance.amount -= invoice.amount;
     await balance.save({ transaction: t });
 
+    // TODO: add to sender's balance
+
     // Step 5: Record the transaction in the Transaction table
     const transaction = await Transaction.create({
       sender_id: user.id,

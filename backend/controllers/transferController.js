@@ -1,6 +1,9 @@
 const { Transfer, Balance, Activity } = require('../models');
+const sequelize = require('../database');
 
 exports.createTransfer = async (req, res) => {
+  const t = await sequelize.transaction(); // Start a transaction
+
   try {
     const {
       dest_id: destId,
@@ -18,7 +21,7 @@ exports.createTransfer = async (req, res) => {
       currency,
       message,
       balance_id: balance.id,
-    });
+    }, { transaction: t });
 
     await Activity.create({
       user_id: req.user.id,
@@ -31,7 +34,10 @@ exports.createTransfer = async (req, res) => {
         amount,
         currency,
       }
-    });
+    }, { transaction: t });
+
+    // Commit the transaction
+    await t.commit();
 
     res.status(201).json({ message: 'Transfer initiated successfully', transfer });
   } catch (error) {

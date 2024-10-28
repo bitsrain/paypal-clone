@@ -49,6 +49,10 @@ module.exports = (sequelize, Sequelize) => {
         key: 'id',
       },
     },
+    transaction_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     message: {
       type: DataTypes.TEXT,
       allowNull: true,
@@ -58,27 +62,33 @@ module.exports = (sequelize, Sequelize) => {
   Transfer.afterCreate(async (transfer, options) => {
     const Balance = sequelize.models.balance;
     const { dest_id: destId, amount } = transfer;
+    try {
+      const transaction = await sequelize.models.transaction.create({
+        sender_id: transfer.user_id,
+        recipient_id: destId,
+        amount,
+        currency: transfer.currency,
+        trigger_id: transfer.id,
+        trigger_type: 'Transfer',
+        comment: transfer.message,
+      }, { transaction: options.transaction });
 
-    await sequelize.models.transaction.create({
-      sender_id: transfer.user_id,
-      recipient_id: destId,
-      amount,
-      currency: transfer.currency,
-      trigger_id: transfer.id,
-      trigger_type: 'Transfer',
-      comment: transfer.message,
-    });
+      const userBalance = await Balance.findOne({ where: { user_id: transfer.user_id } });
+      await userBalance.update({
+        amount: userBalance.amount - amount,
+      }, { transaction: options.transaction });
 
-    const userBalance = await Balance.findOne({ where: { user_id: transfer.user_id } });
-    await userBalance.update({
-      amount: userBalance.amount - amount,
-    });
+      const destBalance = await Balance.findOne({ where: { user_id: destId } });
+      if (destBalance) {
+        await destBalance.update({
+          amount: destBalance.balance + amount,  // Add the amount to recipient balance
+        }, { transaction: options.transaction });
+      }
 
-    const destBalance = await Balance.findOne({ where: { user_id: destId } });
-    if (destBalance) {
-      await destBalance.update({
-        amount: destBalance.balance + amount,  // Add the amount to recipient balance
-      });
+      await transfer.update({ transaction_id: transaction.id }, { transaction: options.transaction });
+    } catch (error) {
+      console.error("Error in afterCreate hook for Transfer:", error);
+      throw error;
     }
   });
 
