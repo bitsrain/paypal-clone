@@ -1,0 +1,68 @@
+.issue-refund-container {
+  max-width: 800px;
+  background-color: white;
+  padding: 20px 20px 40px 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin: 30px auto 50px;
+
+  .refund-date {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .refund-link {
+    display: block;
+    margin-bottom: 20px;
+    color: #1890ff;
+  }
+
+  .ant-form-item {
+    margin-bottom: 0px;
+  }
+
+  .info-row {
+    display: flex;
+    padding: 15px 0px;
+    border-top: 1px dotted #e0e0e0;
+
+    .info-label {
+      flex-shrink: 0;
+      font-weight: 600;
+      width: 300px; /* Fixed width for label column */
+    }
+
+    > :not(.info-label) {
+      width: 0;
+      flex: 1;
+    }
+
+    .ant-input-textarea {
+      resize: none;
+      width: 200px;
+    }
+
+    .ant-input, .ant-input-number {
+      width: 200px;
+    }
+
+    .policy-link {
+      display: block;
+      color: #1890ff;
+    }
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 20px;
+
+    button {
+      width: 120px;
+      height: 40px;
+      font-size: 16px;
+    }
+  }
+}

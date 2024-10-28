@@ -165,7 +165,7 @@ exports.payInvoice = async (req, res) => {
       invoice,
     });
   } catch (error) {
-    await transaction.rollback();
+    await t.rollback();
     console.error(error);
     res.status(500).json({ error: 'Server error' });
   }

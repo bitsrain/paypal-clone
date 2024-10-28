@@ -11,6 +11,9 @@ import SendSuccess from '../../components/SendPage/Success';
 import EditInvoice from '../../components/invoices/EditInvoice';
 import ViewInvoice from '../../components/invoices/ViewInvoice';
 
+import IssueRefund from '../../components/IssueRefund';
+import RefundSuccess from '../../components/IssueRefund/RefundSuccess';
+
 export default [
   {
     path: "/",
@@ -54,7 +57,21 @@ export default [
             path: "v/:id",
             element: <ViewInvoice />,
           },
-        ]
+        ],
+      },
+      {
+        path: "/refunds",
+        element: <MainLayout />,
+        children: [
+          {
+            path: "t/:transaction_id",
+            element: <IssueRefund />,
+          },
+          {
+            path: "success",
+            element: <RefundSuccess />,
+          },
+        ],
       }
     ],
   },

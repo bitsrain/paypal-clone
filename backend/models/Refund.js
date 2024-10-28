@@ -1,8 +1,7 @@
 const { DataTypes } = require('sequelize');
-const { generateTransactionSlug } = require('../utils/generators');
 
 module.exports = (sequelize, Sequelize) => {
-  const Transaction = sequelize.define('transaction', {
+  const Refund = sequelize.define('refund', {
     sender_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -30,39 +29,27 @@ module.exports = (sequelize, Sequelize) => {
       enum: ['USD', 'EUR', 'GBP'],
       defaultValue: 'USD',
     },
-    trigger_id: {
+    parent_transaction_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Transactions',
+        key: 'id',
+      },
+    },
+    transaction_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-    trigger_type: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    comment: {
+    invoice_number: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
-    slug: {
-      type: DataTypes.STRING,
+    notes: {
+      type: DataTypes.TEXT,
       allowNull: true,
     },
   });
 
-  // Generate a unique slug using nanoid before saving the transaction
-  Transaction.beforeCreate(async (transaction, options) => {
-    transaction.slug = generateTransactionSlug();
-  });
-
-  Transaction.addScope('withRefundableUntil', {
-    attributes: {
-      include: [
-        [
-          sequelize.literal(`DATE_ADD(transaction.createdAt, INTERVAL 6 MONTH)`), // MySQL/SQL-friendly version
-          'refundable_until',
-        ],
-      ],
-    },
-  });
-
-  return Transaction;
+  return Refund;
 };
