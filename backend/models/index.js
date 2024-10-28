@@ -18,27 +18,24 @@ const Transaction = TransactionModel(sequelize, Sequelize);
 const Activity = ActivityModel(sequelize, Sequelize);
 const Transfer = TransferModel(sequelize, Sequelize);
 
+// User model relationships
+User.hasMany(Balance, { foreignKey: 'user_id', as: 'balances', onDelete: 'CASCADE' });
+User.hasMany(Invoice, { as: 'invoices', foreignKey: 'user_id' });
+User.hasMany(Invoice, { as: 'received_invoices', foreignKey: 'payer_id' });
+
 // Balance model relationships
-User.hasMany(Balance, {
-  foreignKey: 'user_id',
-  as: 'balances',
-  onDelete: 'CASCADE',
-});
 Balance.belongsTo(User, {
   foreignKey: 'user_id',
   as: 'user',
 });
 
 // Invoice model relationships
-User.hasMany(Invoice, {
-  foreignKey: 'user_id',
-  as: 'invoices',
-  onDelete: 'CASCADE',
-});
-Invoice.belongsTo(User, {
-  foreignKey: 'user_id',
-  as: 'sender',
-});
+Invoice.belongsTo(User, { as: 'user', foreignKey: 'user_id' });
+Invoice.belongsTo(User, { as: 'payer', foreignKey: 'payer_id' });
+Invoice.hasMany(InvoiceItem, { as: 'invoice_items', foreignKey: 'invoice_id' });
+
+// InvoiceItem model relationships
+InvoiceItem.belongsTo(Invoice, { foreignKey: 'invoice_id' });
 
 // Transaction model relationships
 User.hasMany(Transaction, {

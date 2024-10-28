@@ -1,6 +1,5 @@
 .invoice-preview {
   width: 100%;
-  max-width: 800px;
   margin: 0 auto;
   font-family: Arial, sans-serif;
   color: #001f3f;
@@ -46,6 +45,12 @@
     font-weight: bold;
     color: #001f3f;
     margin-bottom: 15px;
+  }
+
+  .invoice-status {
+    text-align: right;
+    margin-bottom: 15px;
+    margin-top: -15px;
   }
 
   .contact-info {

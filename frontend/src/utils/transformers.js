@@ -11,7 +11,7 @@ export const invoiceDraftToRequestable = (invoice) => {
     payer_id: recipient.id,
     items: items.map((item) => ({ ...item, unit_price: item.price })),
     notes: sellerNote,
-    invoice_number: invoiceNumber || 'INV-0001',
+    invoice_number: invoiceNumber || 'INV-0002',
     ship_goods: shipGoods,
   };
 };

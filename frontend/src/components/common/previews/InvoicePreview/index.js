@@ -1,8 +1,9 @@
 import React from 'react';
 import { MailFilled } from '@ant-design/icons';
 import './index.scss';
+import InvoiceStatusBadge from '../../badges/InvoiceStatusBadge';
 
-const InvoicePreview = ({ invoice }) => {
+const InvoicePreview = ({ invoice, showStatus = false }) => {
   const {
     sender,
     invoiceNumber,
@@ -15,6 +16,7 @@ const InvoicePreview = ({ invoice }) => {
     subtotal,
     total,
     note,
+    status,
   } = invoice;
 
   return (
@@ -35,7 +37,9 @@ const InvoicePreview = ({ invoice }) => {
       </div>
 
       {/* Total Amount */}
-      <div className="total-amount">${totalAmount.toLocaleString()}</div>
+      <div className="total-amount">${totalAmount.toFixed(2)}</div>
+
+      {showStatus && <div className="invoice-status"><InvoiceStatusBadge status={status} /></div>}
 
       {/* Contact Info */}
       <div className="contact-info">
@@ -62,10 +66,10 @@ const InvoicePreview = ({ invoice }) => {
           <div className="item" key={index}>
             <div className="item-header">
               <div className="item-title">{item.name}</div>
-              <div className="item-total">${item.total.toLocaleString()}</div>
+              <div className="item-total">${item.total.toFixed(2)}</div>
             </div>
             <div className="item-details">
-              {item.quantity} x {item.price.toLocaleString()} <br />
+              {item.quantity} x {item.price} <br />
               {item.description}
             </div>
           </div>
@@ -76,11 +80,11 @@ const InvoicePreview = ({ invoice }) => {
       <div className="summary-section">
         <div className="subtotal">
           <span className="label">Subtotal</span>
-          <span className="amount">${subtotal.toLocaleString()}</span>
+          <span className="amount">${subtotal.toFixed(2)}</span>
         </div>
         <div className="total">
           <span className="label">Total</span>
-          <span className="amount">${total.toLocaleString()}</span>
+          <span className="amount">${total.toFixed(2)}</span>
         </div>
       </div>
 

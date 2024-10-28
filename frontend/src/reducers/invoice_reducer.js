@@ -1,11 +1,27 @@
 import { createSelector } from 'reselect';
-import { SET_DRAFT, CLEAR_DRAFT, SEND, SEND_SUCCESS, SEND_FAIL, CLEAR_SEND_STATUS } from '../actions/invoice_actions';
+import {
+  SET_DRAFT, CLEAR_DRAFT,
+  SEND, SEND_SUCCESS, SEND_FAIL, CLEAR_SEND_STATUS,
+  LOAD, LOAD_SUCCESS, LOAD_FAIL,
+  PAY, PAY_SUCCESS, PAY_FAIL,
+  CLEAR_LOADED,
+} from '../actions/invoice_actions';
+
+const cleanLoadedStatus = {
+  loadedInvoice: null,
+  loading: false,
+  loadSuccess: false,
+  paying: false,
+  payError: null,
+  paySuccess: false,
+};
 
 export const initialInvoiceState = {
   draft: null,
   sentInvoice: null,
   sending: false,
   sendSuccess: false,
+  ...cleanLoadedStatus,
 };
 
 const invoiceReducer = (state = initialInvoiceState, { type, payload }) => {
@@ -28,7 +44,7 @@ const invoiceReducer = (state = initialInvoiceState, { type, payload }) => {
     case SEND_SUCCESS:
       return {
         ...state,
-        success: true,
+        sendSuccess: true,
         sentInvoice: payload.invoice,
         sending: false,
       };
@@ -39,6 +55,52 @@ const invoiceReducer = (state = initialInvoiceState, { type, payload }) => {
       };
     case CLEAR_SEND_STATUS:
       return initialInvoiceState;
+    case LOAD:
+      return {
+        ...state,
+        ...cleanLoadedStatus,
+        loading: true,
+      };
+    case LOAD_SUCCESS:
+      return {
+        ...state,
+        loadSuccess: true,
+        loadedInvoice: payload,
+        loading: false,
+      };
+    case LOAD_FAIL:
+      return {
+        ...state,
+        loading: false,
+      };
+    case PAY:
+      return {
+        ...state,
+        paying: true,
+        payError: null,
+        paySuccess: false,
+      };
+    case PAY_SUCCESS:
+      return {
+        ...state,
+        loadedInvoice: {
+          ...state.loadedInvoice,
+          ...payload.invoice,
+        },
+        paying: false,
+        paySuccess: true,
+      };
+    case PAY_FAIL:
+      return {
+        ...state,
+        paying: false,
+        payError: payload,
+      };
+    case CLEAR_LOADED:
+      return {
+        ...state,
+        ...cleanLoadedStatus,
+      }
     default:
       return state;
   }
@@ -88,5 +150,68 @@ export const selectDraftPreviewData = createSelector(
     }));
 
     return previewData;
+  }
+);
+
+export const selectLoadedPreviewData = createSelector(
+  [
+    state => state.auth.profile,
+    state => state.invoice.loadedInvoice,
+  ],
+  (me, invoice) => {
+    if (!invoice) return null;
+    const { user, payer, invoice_items: items, final_status: status } = invoice;
+    const previewData = {
+      status,
+    };
+
+    previewData.sender = {
+      name: user.full_name,
+      address: user.address_line_1,
+      city: user.city,
+      country: 'United Kingdom',
+    };
+    previewData.email = user.email;
+    previewData.billTo = {
+      name: payer.full_name,
+      email: payer.email,
+    };
+    previewData.invoiceNumber = invoice.invoice_number;
+    previewData.issueDate = invoice.issue_date;
+    previewData.dueDate = '2024/10/6'; // todo
+    previewData.note = invoice.notes;
+
+    previewData.totalAmount = items.length ?
+      items.reduce((total, item) => total + item.quantity * item.unit_price, 0) :
+      0;
+    previewData.total = previewData.totalAmount; // todo
+    previewData.subtotal = previewData.totalAmount; // todo
+
+    previewData.items = items.map(item => ({
+      ...item,
+      price: item.unit_price,
+      total: item.quantity * item.unit_price,
+    }));
+
+    return previewData;
+  }
+);
+
+export const selectLoadedCompositeStatus = createSelector(
+  [
+    state => state.auth.profile,
+    state => state.invoice.loadedInvoice,
+  ],
+  (me, invoice) => {
+    if (!invoice) return [null, null, null];
+
+    const isReceived = invoice.payer_id === me.id;
+
+    return [
+      invoice.id,
+      invoice.status,
+      invoice.final_status,
+      isReceived,
+    ];
   }
 );

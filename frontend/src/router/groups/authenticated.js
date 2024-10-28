@@ -9,6 +9,7 @@ import SendPreview from '../../components/SendPage/Preview';
 import SendSuccess from '../../components/SendPage/Success';
 
 import EditInvoice from '../../components/invoices/EditInvoice';
+import ViewInvoice from '../../components/invoices/ViewInvoice';
 
 export default [
   {
@@ -47,8 +48,12 @@ export default [
         children: [
           {
             path: "edit",
-            element: <EditInvoice />
-          }
+            element: <EditInvoice />,
+          },
+          {
+            path: "v/:id",
+            element: <ViewInvoice />,
+          },
         ]
       }
     ],

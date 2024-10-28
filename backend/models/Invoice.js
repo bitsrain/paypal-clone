@@ -65,6 +65,28 @@ module.exports = (sequelize, Sequelize) => {
       allowNull:false,
       defaultValue: false,
     },
+    // Virtual attribute for final status
+    final_status: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        const status = this.getDataValue('status');
+        const dueDate = this.getDataValue('due_date');
+        const now = new Date();
+
+        if (status === 'paid' || status === 'draft') {
+          return status; // If status is 'paid' or 'draft', return it directly
+        } else if (status === 'pending') {
+          if (dueDate && dueDate < now) {
+            return 'due'; // If due_date is defined and in the past, return 'due'
+          } else if (!dueDate) {
+            return 'due'; // If due_date is not defined, return 'due' (due on receipt)
+          } else if (dueDate > now) {
+            return 'pending'; // If due_date is in the future, keep as 'pending'
+          }
+        }
+        return status; // Default to the current status as fallback
+      }
+    }
   });
 
   return Invoice;

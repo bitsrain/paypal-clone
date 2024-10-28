@@ -13,7 +13,7 @@ const EditInvoicePage = () => {
   const draft = useSelector(state => state.invoice.draft);
   const sentInvoice = useSelector(state => state.invoice.sentInvoice);
   const sending = useSelector(state => state.invoice.sending);
-  const sendSuccess = useSelector(state => state.invoice.success);
+  const sendSuccess = useSelector(state => state.invoice.sendSuccess);
 
   useEffect(() => {
     dispatch(clearDraft());

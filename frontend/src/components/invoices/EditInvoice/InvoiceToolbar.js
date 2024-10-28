@@ -32,7 +32,7 @@ const InvoiceToolbar = ({ onSend }) => {
         </div>
       </div>
 
-      <div className="invoice-actions">
+      <div className="actions">
         <Dropdown overlay={moreActionsMenu} trigger={['click']}>
           <Button type="default" className="more-actions-btn">
             More actions <DownOutlined />
