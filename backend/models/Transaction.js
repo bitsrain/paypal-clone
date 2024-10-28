@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+const { generateTransactionSlug } = require('../utils/generators');
 
 module.exports = (sequelize, Sequelize) => {
   const Transaction = sequelize.define('transaction', {
@@ -41,6 +42,15 @@ module.exports = (sequelize, Sequelize) => {
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    slug: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+  });
+
+  // Generate a unique slug using nanoid before saving the transaction
+  Transaction.beforeCreate(async (transaction, options) => {
+    transaction.slug = generateTransactionSlug();
   });
 
   return Transaction;

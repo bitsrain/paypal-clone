@@ -2,6 +2,8 @@
 // npx sequelize-cli db:seed:all --config config/config.js
 // npx sequelize-cli db:seed:undo:all --config config/config.js
 // npx sequelize-cli migration:generate --name migration-example
+// npx sequelize-cli db:migrate:undo --config config/config.js
+// npx sequelize-cli db:migrate:undo --config config/config.js --step 2
 
 module.exports = {
   "development": {
