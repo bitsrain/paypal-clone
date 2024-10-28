@@ -160,9 +160,11 @@ export const selectLoadedPreviewData = createSelector(
   ],
   (me, invoice) => {
     if (!invoice) return null;
-    const { user, payer, invoice_items: items, final_status: status } = invoice;
+    const { user, payer, invoice_items: items, final_status: status, updatedAt, paid_at: paidAt } = invoice;
     const previewData = {
       status,
+      updatedAt,
+      paidAt,
     };
 
     previewData.sender = {
@@ -178,7 +180,7 @@ export const selectLoadedPreviewData = createSelector(
     };
     previewData.invoiceNumber = invoice.invoice_number;
     previewData.issueDate = invoice.issue_date;
-    previewData.dueDate = '2024/10/6'; // todo
+    previewData.dueDate = invoice.due_date || 'Upon retrieval';
     previewData.note = invoice.notes;
 
     previewData.totalAmount = items.length ?

@@ -19,7 +19,7 @@ const InvoiceActions = ({ data, onPay, isReceived }) => {
         <Button
           className="paypal-button"
           icon={<PayCircleOutlined />}
-          disabled={false}
+          disabled={!isReceived}
           onClick={onPay}
         >
           PayPal

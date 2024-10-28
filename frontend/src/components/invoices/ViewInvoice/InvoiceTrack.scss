@@ -1,0 +1,46 @@
+.invoice-track {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .invoice-track-section {
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      border-bottom: 1px solid #e1e1e1;
+      padding: 15px 20px;
+  
+      .amount {
+        font-size: 24px;
+        font-weight: bold;
+        color: #001f3f;
+      }
+    }
+
+    .section-list {
+      padding: 5px 20px;
+
+      .section-listitem {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        line-height: 40px;
+      }
+
+      .section-listitem:not(:last-child) {
+        border-bottom: 1px solid #e1e1e1;
+      }
+    }
+  }
+
+  .updated-at {
+    padding: 15px 20px;
+  }
+}

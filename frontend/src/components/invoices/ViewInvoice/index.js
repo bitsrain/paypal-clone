@@ -7,6 +7,7 @@ import { load as loadInvoice, pay as payInvoice, clearLoaded } from '../../../ac
 import { selectLoadedPreviewData, selectLoadedCompositeStatus } from '../../../reducers/invoice_reducer';
 import InvoiceActions from './InvoiceActions';
 import './index.scss';
+import InvoiceTrack from './InvoiceTrack';
 
 const ViewInvioce = () => {
   const { id } = useParams();
@@ -56,12 +57,16 @@ const ViewInvioce = () => {
           <InvoicePreview invoice={previewData} showStatus />
         </div>
         <div className="meta-section">
-          <InvoiceActions
-            data={previewData}
-            invoiceStatus={invoiceStatus}
-            isReceived={isReceived}
-            onPay={handlePay}
-          />
+          {invoiceStatus == 'pending' && (
+            <InvoiceActions
+              data={previewData}
+              isReceived={isReceived}
+              onPay={handlePay}
+            />
+          )} 
+          {invoiceStatus === 'paid' && (
+            <InvoiceTrack data={previewData} />
+          )}
         </div>
       </div>
     </div>
