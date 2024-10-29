@@ -13,19 +13,23 @@ const Panels = () => {
     <div className="dashboard-container">
       {/* Left Section */}
       <div className="left-section">
-        <BalanceCard />
-        <RecentActivity />
+        <div className="content">
+          <BalanceCard />
+          <RecentActivity />
+        </div>
       </div>
 
       {/* Right Section */}
       <div className="right-section">
-        <div className="action-buttons">
-          <Button type="primary" size="large">Send</Button>
-          <Button type="primary" size="large" ghost>Request</Button>
+        <div className="content">
+          <div className="action-buttons">
+            <Button type="primary" size="large">Send</Button>
+            <Button type="primary" size="large" ghost>Request</Button>
+          </div>
+          <QuickActions />
+          <SendAgain />
+          <ExternalLinks />
         </div>
-        <QuickActions />
-        <SendAgain />
-        <ExternalLinks />
       </div>
     </div>
   );

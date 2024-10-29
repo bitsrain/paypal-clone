@@ -55,14 +55,14 @@ const LoginForm = () => {
           name="email"
           rules={[{ required: true, message: tr('login.msg.email_required') }]}
         >
-          <Input placeholder={tr('login.email')} />
+          <Input placeholder={tr('login.email')} size="large" />
         </Form.Item>
 
         <Form.Item
           name="password"
           rules={[{ required: true, message: tr('login.msg.password_required') }]}
         >
-          <Input.Password placeholder={tr('login.password')} />
+          <Input.Password placeholder={tr('login.password')} size="large" />
         </Form.Item>
 
         <Form.Item>
@@ -72,7 +72,7 @@ const LoginForm = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="login-form-button">
+          <Button type="primary" htmlType="submit" className="login-form-button" size="large">
             {tr('login.submit')}
           </Button>
         </Form.Item>
@@ -80,7 +80,7 @@ const LoginForm = () => {
         <div className="or-separator">or</div>
 
         <Form.Item>
-          <Button type="default" className="signup-form-button">
+          <Button type="default" className="signup-form-button" size="large">
             {tr('login.sign_up')}
           </Button>
         </Form.Item>

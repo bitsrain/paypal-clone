@@ -1,15 +1,27 @@
 .dashboard-container {
   display: flex;
-  justify-content: center;
-  padding: 20px;
+  flex-direction: row;
 
   .left-section, .right-section {
     flex: 1;
-    padding: 20px;
-    max-width: 550px;
+    width: 0;
+    padding: 40px;
+  }
+
+  .left-section {
+    .content {
+      max-width: 550px;
+      margin-left: auto;
+    }
   }
 
   .right-section {
+    background-color: white;
+
+    .content {
+      max-width: 550px;
+    }
+
     .action-buttons {
       display: flex;
       justify-content: space-between;
