@@ -24,6 +24,7 @@ const authReducer = (state = unauthenticatedState, action) => {
       return {
         ...state,
         isAuthenticated: true,
+        isLoaded: false,
       };
     case LOAD_PROFILE_REQUEST:
       return {

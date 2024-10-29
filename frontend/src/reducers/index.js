@@ -1,15 +1,30 @@
 import { combineReducers } from "redux";
-import authReducer from "./auth_reducer";
+import { LOGOUT } from "../actions/auth_actions";
+import { deleteSession } from "../utils/auth";
+import authReducer, { unauthenticatedState } from "./auth_reducer";
 import sendReducer from './send_reducer';
 import invoiceReducer from "./invoice_reducer";
 import refundReducer from "./refund_reducer";
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   auth: authReducer,
   // Add other child reducers here
   send: sendReducer,
   invoice: invoiceReducer,
   refund: refundReducer,
 });
+
+// Root reducer with LOGOUT action handling
+const rootReducer = (state, action) => {
+  if (action.type === LOGOUT) {
+    deleteSession();
+    // Reset the state to undefined, causing all reducers to reset to their initial state
+    state = {
+      auth: unauthenticatedState,
+    };
+  }
+
+  return appReducer(state, action);
+};
 
 export default rootReducer;
