@@ -5,9 +5,9 @@ import {
   REFUND, REFUND_SUCCESS, REFUND_FAIL,
 } from '../actions/refund_actions';
 
-function* loadTransaction({ payload: transactionId }) {
+function* loadTransaction({ payload: transactionSlug }) {
   try {
-    const response = yield axios.get(`/transactions/${transactionId}`);
+    const response = yield axios.get(`/transactions/${transactionSlug}`);
     yield put({ type: LOAD_TRANSACTION_SUCCESS, payload: response.data });
   } catch (error) {
     console.log('Error', error);

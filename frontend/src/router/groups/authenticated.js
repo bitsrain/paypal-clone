@@ -14,6 +14,8 @@ import ViewInvoice from '../../components/invoices/ViewInvoice';
 import IssueRefund from '../../components/IssueRefund';
 import RefundSuccess from '../../components/IssueRefund/RefundSuccess';
 
+import TransactionDetail from "../../components/transactions/TransactionDetail";
+
 export default [
   {
     path: "/",
@@ -64,7 +66,7 @@ export default [
         element: <MainLayout />,
         children: [
           {
-            path: "t/:transaction_id",
+            path: "t/:transaction_slug",
             element: <IssueRefund />,
           },
           {
@@ -72,7 +74,17 @@ export default [
             element: <RefundSuccess />,
           },
         ],
-      }
+      },
+      {
+        path: "/transactions",
+        element: <MainLayout />,
+        children: [
+          {
+            path: "v/:slug",
+            element: <TransactionDetail />,
+          },
+        ],
+      },
     ],
   },
 ];

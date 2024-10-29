@@ -37,12 +37,12 @@ module.exports = (sequelize, Sequelize) => {
         key: 'id',
       },
     },
-    transaction_id: {
-      type: DataTypes.INTEGER,
+    transaction_slug: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
     invoice_number: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: true,
     },
     notes: {

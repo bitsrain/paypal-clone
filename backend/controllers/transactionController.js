@@ -24,6 +24,49 @@ exports.getTransaction = async (req, res) => {
   }
 };
 
+exports.getFullTransaction = async (req, res) => {
+  const transactionSlug = req.params.slug; // Retrieve the transaction ID from the request params
+
+  try {
+    const transaction = await Transaction.scope('withRefundableUntil').findOne({
+      where: { slug: transactionSlug },
+      include: [
+        { model: User, as: 'sender', attributes: ['id', 'full_name', 'email', 'address_line_1', 'city', 'state'] }, // Transaction sender
+        { model: User, as: 'recipient', attributes: ['id', 'full_name', 'email'] }, // Transaction sender
+        { model: Refund, as: 'refunds', attributes: ['id', 'amount', 'transaction_slug', 'createdAt'] },
+      ],
+    });
+    if (!transaction) {
+      return res.status(404).json({ error: 'Transaction not found' });
+    }
+
+    let parentTransaction = null;
+    if (transaction.trigger_type === 'Refund') {
+      const refund = await Refund.findByPk(transaction.trigger_id);
+      parentTransaction = await Transaction.findByPk(refund.parent_transaction_id);
+    }
+
+    let invoice = null;
+    if (transaction.trigger_type === 'Invoice') {
+      invoice = await Invoice.findByPk(transaction.trigger_id, {
+        include: [
+          { model: InvoiceItem, as: 'invoice_items' }, // Invoice items
+        ],
+      });
+    }
+
+    // Send the transaction with all related data
+    res.status(200).json({
+      ...transaction.toJSON(),
+      refund_parent: parentTransaction?.toJSON(),
+      invoice: invoice?.toJSON(),
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
 exports.refund = async (req, res) => {
   const { slug: transactionSlug } = req.params;
   const { user } = req;
@@ -79,10 +122,11 @@ exports.refund = async (req, res) => {
       amount: amount,
       trigger_id: refund.id,
       trigger_type: 'Refund',
-      comment: 'Refunded transaction',
+      comment: notes,
     }, { transaction: t });
 
-    await refund.update({ transaction_id: refundTransaction.id }, { transaction: t });
+    await refund.update({ transaction_slug: refundTransaction.slug }, { transaction: t });
+    await transaction.update({ refunded: true }, { transaction: t });
 
     await t.commit();
 

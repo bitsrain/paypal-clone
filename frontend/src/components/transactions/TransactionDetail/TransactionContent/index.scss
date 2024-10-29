@@ -1,0 +1,72 @@
+.transaction-content {
+  font-size: 15px;
+
+  a {
+    color: #0070E0;
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  .section {
+    padding: 20px 20px 20px 70px;
+  }
+
+  .section:not(:first-child) {
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .section.major {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+
+    .major-left, .major-right {
+      flex: 1;
+    }
+
+    .item {
+      margin-bottom: 20px;
+
+      .label {
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+  
+      .field-value {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .invoice-item {
+        margin-bottom: 17px;
+      }
+    }
+
+    .ant-divider {
+      margin: 10px 0px;
+    }
+    .bold {
+      font-weight: 700;
+    }
+  }
+
+  .refund-button {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 2px solid #0a4a9e; // Border color similar to the blue in the design
+    border-radius: 20px;
+    color: #0a4a9e;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 10px;
+  
+    &:hover {
+      color: #08397b;
+      border-color: #08397b;
+      text-decoration: none;
+    }
+  }
+}

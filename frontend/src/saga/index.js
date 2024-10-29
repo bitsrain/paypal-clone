@@ -4,6 +4,7 @@ import authSaga from './auth_saga';
 import sendSaga from './send_saga';
 import invoiceSaga from './invoice_saga';
 import refundSaga from './refund_saga';
+import transactionSaga from './transaction_saga';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_ROOT;
 
@@ -13,5 +14,6 @@ export default function* rootSaga() {
     sendSaga(),
     invoiceSaga(),
     refundSaga(),
+    transactionSaga(),
   ]);
 }

@@ -1,0 +1,28 @@
+.transaction-summary {
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+  gap: 15px;
+
+  .info {
+    width: 0;
+    flex: 1;
+    font-size: 14px;
+
+    .opponent {
+      font-size: 17px;
+      font-weight: 700;
+    }
+  }
+
+  .amount-action {
+    .amount {
+      font-size: 17px;
+      font-weight: 700;
+
+      &.received {
+        color: green;
+      }
+    }
+  }
+}

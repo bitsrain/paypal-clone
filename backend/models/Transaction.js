@@ -46,6 +46,11 @@ module.exports = (sequelize, Sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    refunded: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   });
 
   // Generate a unique slug using nanoid before saving the transaction

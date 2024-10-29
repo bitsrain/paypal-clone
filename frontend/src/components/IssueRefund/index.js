@@ -13,7 +13,7 @@ const VALIDATION_RULES = {
 };
 
 const IssueRefund = () => {
-  const { transaction_id: transactionId } = useParams();
+  const { transaction_slug: transactionSlug } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const transaction = useSelector(state => state.refund.transaction);
@@ -24,12 +24,12 @@ const IssueRefund = () => {
   const refundError = useSelector(state => state.refund.refundError);
 
   useEffect(() => {
-    dispatch(loadTransaction(transactionId));
+    dispatch(loadTransaction(transactionSlug));
     
     return () => {
       dispatch(clearTransaction());
     };
-  }, [transactionId]);
+  }, [transactionSlug]);
 
   useEffect(() => {
     if (refundSuccess) {

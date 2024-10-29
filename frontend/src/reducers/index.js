@@ -5,6 +5,7 @@ import authReducer, { unauthenticatedState } from "./auth_reducer";
 import sendReducer from './send_reducer';
 import invoiceReducer from "./invoice_reducer";
 import refundReducer from "./refund_reducer";
+import transactionReducer from "./transaction_reducer";
 
 const appReducer = combineReducers({
   auth: authReducer,
@@ -12,6 +13,7 @@ const appReducer = combineReducers({
   send: sendReducer,
   invoice: invoiceReducer,
   refund: refundReducer,
+  transaction: transactionReducer,
 });
 
 // Root reducer with LOGOUT action handling

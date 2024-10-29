@@ -1,0 +1,14 @@
+.transaction-detail-page {
+  max-width: 800px;
+  margin: 30px auto 50px;
+
+  .panel {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: white;
+  }
+
+  .transaction-content {
+    border-top: 1px solid #e0e0e0;
+  }
+}

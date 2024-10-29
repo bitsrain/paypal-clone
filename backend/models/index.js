@@ -56,6 +56,7 @@ Transaction.belongsTo(User, {
   foreignKey: 'recipient_id',
   as: 'recipient',
 });
+Transaction.hasMany(Refund, { as: 'refunds', foreignKey: 'parent_transaction_id' });
 
 // Transactions' trigger Polymorphism, one-sided only
 // Transaction.belongsTo(Invoice, { foreignKey: 'trigger_id', constraints: false });

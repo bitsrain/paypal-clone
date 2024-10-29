@@ -115,17 +115,16 @@ exports.payInvoice = async (req, res) => {
       return res.status(401).json({ error: 'Not authorized' });
     }
 
-    // Step 2: Check payer's balance
-    const balance = await Balance.findOne({ where: { user_id: user.id } });
-    if (balance.amount < invoice.amount) {
+    const myBalance = await Balance.findOne({ where: { user_id: user.id } });
+    const oppBalance = await Balance.findOne({ where: { user_id: invoice.user_id }});
+    if (myBalance.amount < invoice.amount) {
       return res.status(400).json({ error: 'Insufficient balance' });
     }
 
-    // Step 3: Deduct the invoice amount from the payer's balance
-    balance.amount -= invoice.amount;
-    await balance.save({ transaction: t });
-
-    // TODO: add to sender's balance
+    myBalance.amount -= +invoice.amount;
+    oppBalance.amount += +invoice.amount;
+    await myBalance.save({ transaction: t });
+    await oppBalance.save({ transaction: t });
 
     // Step 5: Record the transaction in the Transaction table
     const transaction = await Transaction.create({
@@ -134,7 +133,7 @@ exports.payInvoice = async (req, res) => {
       amount: invoice.amount,
       trigger_id: invoice.id,
       trigger_type: 'Invoice',
-      comment: 'Invoice paid',
+      // comment: 'Invoice paid',
     }, { transaction: t });
   
     // Step 4: Update the invoice status to 'paid'
