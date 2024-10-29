@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { Refund, Invoice, InvoiceItem, Transaction, Activity, Balance, User } = require('../models');
 const sequelize = require('../database');
 
@@ -23,6 +24,31 @@ exports.getTransaction = async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 };
+
+exports.getList = async (req, res) => {
+  const { user } = req;
+
+  try {
+    const transactions = await Transaction.findAll({
+      where: {
+        [Op.or]: [
+          { sender_id: user.id },
+          { recipient_id: user.id }
+        ]
+      },
+      order: [['createdAt', 'DESC']],
+      include: [
+        { model: User, as: 'sender', attributes: ['id', 'full_name', 'email'] },
+        { model: User, as: 'recipient', attributes: ['id', 'full_name', 'email'] }
+      ]
+    });
+
+    res.status(200).json({ transactions });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+}
 
 exports.getFullTransaction = async (req, res) => {
   const transactionSlug = req.params.slug; // Retrieve the transaction ID from the request params

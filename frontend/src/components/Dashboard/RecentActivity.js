@@ -1,74 +1,39 @@
-import React from 'react';
-import { List, Avatar, Typography } from 'antd';
+import React, { useEffect } from 'react';
+import { List } from 'antd';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadList } from '../../actions/transaction_actions';
+import TransactionSummary from '../transactions/TransactionDetail/TransactionSummary';
 import './RecentActivity.scss';
 
-const { Text } = Typography;
-
-const recentActivities = [
-  {
-    id: 1,
-    name: 'Gal Doron',
-    date: '20 Oct',
-    description: 'Money Received',
-    amount: '+$420.00 USD',
-    type: 'credit',
-    avatar: 'GD',
-  },
-  {
-    id: 2,
-    name: 'Upwork Escrow Inc.',
-    date: '17 Oct',
-    description: 'Automatic Payment',
-    amount: '-$36.00 USD',
-    type: 'debit',
-    avatar: 'UP',
-  },
-  {
-    id: 3,
-    name: 'Mingli Zhao',
-    date: '16 Oct',
-    description: 'Invoice paid',
-    amount: '-$470.00 USD',
-    type: 'debit',
-    avatar: 'MZ',
-  },
-  {
-    id: 4,
-    name: 'Kehinde Williams',
-    date: '15 Oct',
-    description: 'Money Received',
-    amount: '+$472.75 USD',
-    type: 'credit',
-    avatar: 'KW',
-  },
-];
-
 const RecentActivity = () => {
+  const dispatch = useDispatch();
+  const transactions = useSelector(state => state.transaction.list);
+  const loading = useSelector(state => state.transaction.loading);
+  const me = useSelector(state => state.auth.profile);
+
+  useEffect(() => {
+    dispatch(loadList({ reset: true }));
+  }, []);
+
+  const showList = !loading && !!me;
+
   return (
     <div className="recent-activity">
       <h2 className="activity-title">Recent activity</h2>
-      <List
-        itemLayout="horizontal"
-        dataSource={recentActivities}
-        renderItem={(activity) => (
-          <List.Item className="activity-item">
-            <List.Item.Meta
-              avatar={<Avatar style={{ backgroundColor: '#52c41a' }}>{activity.avatar}</Avatar>}
-              title={<Text className="activity-name">{activity.name}</Text>}
-              description={
-                <>
-                  <Text className="activity-date">{activity.date}</Text>
-                  <br />
-                  <Text className="activity-description">{activity.description}</Text>
-                </>
-              }
-            />
-            <Text className={`activity-amount ${activity.type === 'credit' ? 'credit' : 'debit'}`}>
-              {activity.amount}
-            </Text>
-          </List.Item>
-        )}
-      />
+      {showList && (
+        <List
+          itemLayout="horizontal"
+          dataSource={transactions}
+          renderItem={(transaction) => (
+            <List.Item className="activity-item">
+              <Link to={`/transactions/v/${transaction.slug}`}>
+                <TransactionSummary transaction={transaction} me={me} />
+              </Link>
+            </List.Item>
+          )}
+        />
+      )}
     </div>
   );
 };
