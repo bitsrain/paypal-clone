@@ -9,4 +9,15 @@
     margin-right: auto;
     padding: 30px;
   }
+
+  .list {
+    margin-top: 30px;
+
+    .list-item {
+      display: block;
+      padding: 0px;
+      border-bottom: none;
+      margin-bottom: 10px;
+    }
+  }
 }

@@ -31,7 +31,7 @@ const Navbar = () => {
           <Link to="/wallet">Wallet</Link>
         </Menu.Item>
         <Menu.Item key="activity">
-          <Link to="/activity">Activity</Link>
+          <Link to="/transactions">Activity</Link>
         </Menu.Item>
         <Menu.Item key="help">
           <Link to="/help">Help</Link>

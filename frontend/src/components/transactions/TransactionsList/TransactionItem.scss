@@ -1,0 +1,16 @@
+.transaction-item {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+
+  .summary-container {
+    cursor: pointer;
+  }
+
+  .content-container {
+    border-top: 1px solid #e0e0e0;
+
+    .ant-spin {
+      margin: 20px;
+    }
+  }
+}
