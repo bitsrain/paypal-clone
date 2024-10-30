@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadList } from '../../actions/transaction_actions';
 import TransactionSummary from '../transactions/TransactionDetail/TransactionSummary';
 import './RecentActivity.scss';
+import { RECENT } from '../../constants/transaction_filters';
 
 const RecentActivity = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const RecentActivity = () => {
   const me = useSelector(state => state.auth.profile);
 
   useEffect(() => {
-    dispatch(loadList({ reset: true }));
+    dispatch(loadList({ reset: true, filters: { date: RECENT } }));
   }, []);
 
   const showList = !loading && !!me;

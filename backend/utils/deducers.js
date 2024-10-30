@@ -5,6 +5,7 @@ const LAST_MONTH = 'last_month';
 const THIS_MONTH = 'this_month';
 const LAST_YEAR = 'last_year';
 const THIS_YEAR = 'this_year';
+const RECENT = 'recent';
 
 exports.getDateRange = (period) => {
   let startDate;
@@ -33,6 +34,10 @@ exports.getDateRange = (period) => {
     case THIS_YEAR:
       startDate = moment().startOf('year');
       endDate = moment().endOf('year');
+      break;
+
+    case RECENT:
+      startDate = moment().subtract(15, 'days').startOf('day');
       break;
 
     default:

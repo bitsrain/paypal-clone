@@ -3,6 +3,7 @@ export const LAST_MONTH = 'last_month';
 export const THIS_MONTH = 'this_month';
 export const LAST_YEAR = 'last_year';
 export const THIS_YEAR = 'this_year';
+export const RECENT = 'recent';
 
 export const DATE_OPTIONS = [
   { value: THIS_MONTH, label: 'This Month' },
