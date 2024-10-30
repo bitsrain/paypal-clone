@@ -1,6 +1,14 @@
 const { Op } = require('sequelize');
 const { Refund, Invoice, InvoiceItem, Transaction, Activity, Balance, User } = require('../models');
 const sequelize = require('../database');
+const { getDateRange } = require('../utils/deducers');
+
+const AUTOMATIC_PAYMENTS = 'automatic_payments';
+const PAYMENTS = 'payments';
+const PAYMENTS_RECEIVED = 'payments_received';
+const REFUNDS = 'refunds';
+const TRANSFERS = 'transfers';
+const REPORTED_TRANSACTIONS = 'reported_transactions';
 
 exports.getTransaction = async (req, res) => {
   const transactionSlug = req.params.slug; // Retrieve the transaction ID from the request params
@@ -27,15 +35,62 @@ exports.getTransaction = async (req, res) => {
 
 exports.getList = async (req, res) => {
   const { user } = req;
+  const { date: period, dateRange, user_id: opponentId, transactionType, status } = req.query;
+
+  const conditions = {
+    [Op.or]: [
+      { sender_id: user.id },
+      { recipient_id: user.id }
+    ]
+  };
+
+  if (period) {
+    const periodDateRange = getDateRange(period);
+    conditions.createdAt = {
+      [Op.between]: periodDateRange
+    };
+  }
+
+  // Add dateRange filter
+  if (dateRange && dateRange.length == 2) {
+    const [startDate, endDate] = dateRange;
+    conditions.createdAt = {
+      [Op.between]: [new Date(startDate), new Date(endDate)]
+    };
+  }
+
+  // Add opponentId filter
+  if (opponentId) {
+    conditions[Op.or] = [
+      { sender_id: user.id, recipient_id: opponentId },
+      { sender_id: opponentId, recipient_id: user.id },
+    ];
+  }
+
+  if (transactionType) {
+    switch (transactionType) {
+      case REFUNDS:
+        conditions.trigger_type = 'Refund';
+        break;
+      case PAYMENTS:
+        conditions.trigger_type = { [Op.ne]: 'Refund' };
+        conditions.sender_id = user.id;
+        break;
+      case PAYMENTS_RECEIVED:
+        conditions.trigger_type = { [Op.ne]: 'Refund' };
+        conditions.recipient_id = user.id;
+      default:
+        conditions.trigger_type = 'NON-EXISTING'; // return no data;
+    }
+  }
+
+  if (status) {
+    conditions.trigger_type = 'NON-EXISTING'; // return no data;
+  }
 
   try {
     const transactions = await Transaction.findAll({
-      where: {
-        [Op.or]: [
-          { sender_id: user.id },
-          { recipient_id: user.id }
-        ]
-      },
+      where: conditions,
       order: [['createdAt', 'DESC']],
       include: [
         { model: User, as: 'sender', attributes: ['id', 'full_name', 'email'] },

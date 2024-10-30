@@ -1,9 +1,10 @@
 import React from 'react';
-import { List } from 'antd';
+import { List, Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import TransactionFilters from './Filters';
 import { LAST_90_DAYS } from '../../../constants/transaction_filters';
 import { loadList } from '../../../actions/transaction_actions';
+import { dateRangeToRequestable } from '../../../utils/transformers';
+import TransactionFilters from './Filters';
 import TransactionItem from './TransactionItem';
 import './index.scss';
 
@@ -17,7 +18,12 @@ const TransactionsList = () => {
   const loading = useSelector(state => state.transaction.loading);
   const me = useSelector(state => state.auth.profile);
   const handleFilterChange = (filters) => {
-    dispatch(loadList({ reset: true, filters }));
+    const requestableFilter = { ...filters };
+    if (filters.dateRage) {
+      requestableFilter.dateRange = dateRangeToRequestable(filters.dateRange);
+    }
+  
+    dispatch(loadList({ reset: true, filters: requestableFilter }));
   };
 
   const showList = !loading && !!me;
@@ -38,6 +44,7 @@ const TransactionsList = () => {
             )}
           />
         )}
+        {loading && <Spin spinning fullscreen />}
       </div>
     </div>
   );

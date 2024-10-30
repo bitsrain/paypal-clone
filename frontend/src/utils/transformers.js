@@ -66,3 +66,10 @@ export const selectOptionstoMap = options => {
 
   return obj;
 };
+
+// 'DD/MM/YYYY' to 'YYYY-MM-DD'
+export const dateRangeToRequestable = dateRange => {
+  if (!dateRange) return dateRange;
+
+  return dateRange.map(dateStr => moment(dateStr, 'DD/MM/YYYY').format('YYYY-MM-DD'));
+};
