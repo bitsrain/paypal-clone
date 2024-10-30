@@ -1,20 +1,26 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { Select, Spin } from 'antd';
 import debounce from 'lodash.debounce';
-import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
+import { PlusOutlined, CloseOutlined, SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './index.scss';
 
 const { Option } = Select;
 
-const UserSearchInput = ({ onSelect }) => {
+const UserSearchInput = ({ showIcon = false, placeholder = 'Contact name or email', onSelect }) => {
+  const isInitialMount = useRef(true);
   const [query, setQuery] = useState('');
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
-    onSelect(selectedUser);
+    if (isInitialMount.current) {
+      // Skip the effect on the initial mount
+      isInitialMount.current = false;
+    } else {
+      onSelect(selectedUser);
+    }
   }, [selectedUser]);
 
   // Define the debounced fetch function using useCallback to memoize it
@@ -78,12 +84,17 @@ const UserSearchInput = ({ onSelect }) => {
         <Select
           showSearch
           value={query || undefined} // Ensure query is correctly linked to the value
-          placeholder="Contact name or email" // Fix placeholder text
+          placeholder={placeholder} // Fix placeholder text
           style={{ width: '100%', marginBottom: '20px', height: '48px', fontSize: '16px' }} // Match input size to selected state
           defaultActiveFirstOption={false}
           showArrow={false}
           filterOption={false}
           onSearch={handleInputChange}
+          {
+            ...(
+              showIcon ? { prefixIcon: <SearchOutlined /> } : {}
+            )
+          }
           notFoundContent={loading ? <Spin /> : 'No users found'}
           onSelect={handleUserSelect} // Handle selection of a user
           dropdownRender={(menu) => (

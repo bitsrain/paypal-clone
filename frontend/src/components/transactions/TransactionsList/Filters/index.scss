@@ -1,0 +1,15 @@
+.transaction-filters {
+  .selectors {
+    display: flex;
+
+    .user-select {
+      width: 0;
+      flex: 1;
+    }
+
+    .actions {
+      margin-top: 5px;
+      margin-left: 10px;
+    }
+  }
+}

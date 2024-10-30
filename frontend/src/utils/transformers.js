@@ -57,3 +57,12 @@ export const transactionSummary = (transaction, me) => {
     type,
   };
 };
+
+export const selectOptionstoMap = options => {
+  const obj = {};
+  for (let option of options) {
+    obj[option.value] = option.label;
+  }
+
+  return obj;
+};

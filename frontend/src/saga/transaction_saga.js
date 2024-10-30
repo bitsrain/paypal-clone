@@ -16,10 +16,10 @@ function* loadSingle({ payload: transactionSlug }) {
 }
 
 function* loadList({ payload }) {
-  const { reset, options } = payload;
+  const { reset, filters } = payload;
 
   try {
-    const response = yield axios.get(`/transactions`);
+    const response = yield axios.get(`/transactions`, { params: filters });
     yield put({ type: LOAD_LIST_SUCCESS, payload: { reset, transactions: response.data.transactions } });
   } catch (error) {
     console.log('Error', error);
