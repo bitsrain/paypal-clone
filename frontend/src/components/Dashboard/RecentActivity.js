@@ -27,7 +27,7 @@ const RecentActivity = () => {
           dataSource={transactions}
           renderItem={(transaction) => (
             <List.Item className="activity-item">
-              <Link to={`/transactions/v/${transaction.slug}`}>
+              <Link to={transaction.trigger_type === 'InvoiceNotify' ? `/invoices/v/${transaction.trigger_id}` : `/transactions/v/${transaction.slug}`}>
                 <TransactionSummary transaction={transaction} me={me} />
               </Link>
             </List.Item>

@@ -1,4 +1,4 @@
-import { INVOICE_PAID, MONEY_RECEIVED, MONEY_SENT, PAID_INVOICE, REFUND_RECEIVED, REFUND_SENT } from "../constants/transaction_types";
+import { INVOICE_PAID, INVOICE_RECEIVED, MONEY_RECEIVED, MONEY_SENT, PAID_INVOICE, REFUND_RECEIVED, REFUND_SENT } from "../constants/transaction_types";
 
 export const invoiceDraftToRequestable = (invoice) => {
   const {
@@ -36,6 +36,9 @@ export const transactionSummary = (transaction, me) => {
   switch (transaction.trigger_type) {
     case 'Invoice':
       type = isReceived ? INVOICE_PAID : PAID_INVOICE;
+      break;
+    case 'InvoiceNotify': // not a model name, custom one for invoice received notification
+      type = INVOICE_RECEIVED;
       break;
     case 'Transfer':
       type = isReceived ? MONEY_RECEIVED : MONEY_SENT;

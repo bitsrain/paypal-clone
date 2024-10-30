@@ -10,6 +10,13 @@ const REFUNDS = 'refunds';
 const TRANSFERS = 'transfers';
 const REPORTED_TRANSACTIONS = 'reported_transactions';
 
+const INCOMING_PAYMENTS_TO_REVIEW = 'incoming_payments_to_review';
+const TRACKING_NUMBERS_TO_ADD = 'tracking_numbers_to_add';
+const SHIPPING_LABELS_TO_PRINT = 'shipping_labels_to_print';
+const PAYMENT_REQUESTS_TO_REVIEW = 'payment_requests_to_review';
+const INVOICES_TO_PAY = 'invoices_to_pay';
+const HOLDS = 'holds';
+
 exports.getTransaction = async (req, res) => {
   const transactionSlug = req.params.slug; // Retrieve the transaction ID from the request params
 
@@ -38,9 +45,20 @@ exports.getList = async (req, res) => {
   const { date: period, dateRange, user_id: opponentId, transactionType, status } = req.query;
 
   const conditions = {
-    [Op.or]: [
-      { sender_id: user.id },
-      { recipient_id: user.id }
+    [Op.and]: [
+      {
+        [Op.or]: [
+          { sender_id: user.id },
+          { recipient_id: user.id }
+        ]
+      },
+      // Exclude transactions where trigger_type is 'InvoiceNotify' and recipient_id is user.id
+      {
+        [Op.not]: {
+          trigger_type: 'InvoiceNotify',
+          recipient_id: user.id
+        }
+      }
     ]
   };
 
@@ -52,7 +70,7 @@ exports.getList = async (req, res) => {
   }
 
   // Add dateRange filter
-  if (dateRange && dateRange.length == 2) {
+  if (dateRange && dateRange.length === 2) {
     const [startDate, endDate] = dateRange;
     conditions.createdAt = {
       [Op.between]: [new Date(startDate), new Date(endDate)]
@@ -61,9 +79,9 @@ exports.getList = async (req, res) => {
 
   // Add opponentId filter
   if (opponentId) {
-    conditions[Op.or] = [
+    conditions[Op.and][0][Op.or] = [
       { sender_id: user.id, recipient_id: opponentId },
-      { sender_id: opponentId, recipient_id: user.id },
+      { sender_id: opponentId, recipient_id: user.id }
     ];
   }
 
@@ -73,19 +91,30 @@ exports.getList = async (req, res) => {
         conditions.trigger_type = 'Refund';
         break;
       case PAYMENTS:
-        conditions.trigger_type = { [Op.ne]: 'Refund' };
+        conditions.trigger_type = { [Op.notIn]: ['Refund', 'InvoiceNotify'] };
         conditions.sender_id = user.id;
         break;
       case PAYMENTS_RECEIVED:
-        conditions.trigger_type = { [Op.ne]: 'Refund' };
+        conditions.trigger_type = { [Op.notIn]: ['Refund', 'InvoiceNotify'] };
         conditions.recipient_id = user.id;
+        break;
       default:
-        conditions.trigger_type = 'NON-EXISTING'; // return no data;
+        conditions.trigger_type = 'NON-EXISTING'; // Return no data
     }
   }
 
   if (status) {
-    conditions.trigger_type = 'NON-EXISTING'; // return no data;
+    switch (status) {
+      case INVOICES_TO_PAY:
+        if (!transactionType) {
+          conditions.trigger_type = 'InvoiceNotify';
+        } else { // doesn't comply with any of transaction type filters
+          conditions.trigger_type = 'NON-EXISTING';
+        }
+        break;
+      default:
+        conditions.trigger_type = 'NON-EXISTING'; // Return no data
+    }
   }
 
   try {

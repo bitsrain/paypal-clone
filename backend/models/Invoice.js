@@ -21,7 +21,6 @@ module.exports = (sequelize, Sequelize) => {
     invoice_number: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
     amount: {
       type: DataTypes.DECIMAL(10, 2),

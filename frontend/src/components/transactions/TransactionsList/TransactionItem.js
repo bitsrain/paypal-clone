@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadSingle } from '../../../actions/transaction_actions';
 import TransactionContent from '../TransactionDetail/TransactionContent';
 import { Spin } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const TransactionItem = ({ transaction, me }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
   const fullTransactions = useSelector(state => state.transaction.singles);
   const concern = useMemo(() => {
@@ -15,6 +17,11 @@ const TransactionItem = ({ transaction, me }) => {
   }, [fullTransactions]);
 
   const toggleExpand = () => {
+    if (transaction.trigger_type === 'InvoiceNotify') {
+      navigate(`/invoices/v/${transaction.trigger_id}`);
+      return;
+    }
+
     if (concern.loading) return;
 
     const newExpanded = !expanded;

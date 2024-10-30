@@ -29,6 +29,15 @@ exports.createInvoice = async (req, res) => {
       issue_date: new Date(),
     }, { transaction: t });
 
+    // create transaction for `invoice received` notif; deleted on `invoice pay`
+    await Transaction.create({
+      sender_id: payerId,
+      recipient_id: userId,
+      amount: invoice.amount,
+      trigger_id: invoice.id,
+      trigger_type: 'InvoiceNotify',
+    }, { transaction: t });
+
     // Create activity within the transaction
     await Activity.create({
       user_id: payerId,
@@ -141,6 +150,15 @@ exports.payInvoice = async (req, res) => {
     invoice.paid_at = new Date();
     invoice.transaction_id = transaction.id;
     await invoice.save({ transaction: t });
+
+    // Delete `invoice received` transaction
+    await Transaction.destroy({
+      where: {
+        trigger_type: 'InvoiceNotify',
+        trigger_id: invoice.id,
+      },
+      transaction: t,
+    });
 
     // Create activity within the transaction
     await Activity.create({
