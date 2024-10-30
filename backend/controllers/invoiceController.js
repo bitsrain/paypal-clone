@@ -1,6 +1,7 @@
 const { Invoice, InvoiceItem, Transaction, Activity, Balance, User } = require('../models');
 const sequelize = require('../database');
 const { invoiceTotalFromItems } = require('../utils/deducers');
+const InvoiceService = require('../services/InvoiceService');
 
 exports.createInvoice = async (req, res) => {
   const t = await sequelize.transaction(); // Start a transaction
@@ -13,6 +14,7 @@ exports.createInvoice = async (req, res) => {
       notes,
       invoice_number,
       ship_goods,
+      due_date,
     } = req.body;
 
     const totalAmount = invoiceTotalFromItems(items);
@@ -27,6 +29,7 @@ exports.createInvoice = async (req, res) => {
       ship_goods,
       status: 'pending',
       issue_date: new Date(),
+      due_date,
     }, { transaction: t });
 
     // create transaction for `invoice received` notif; deleted on `invoice pay`
@@ -183,6 +186,21 @@ exports.payInvoice = async (req, res) => {
     });
   } catch (error) {
     await t.rollback();
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+exports.genInvoiceNumber = async (req, res) => {
+  const { user } = req;
+
+  try {
+    const invoiceNumberSuggestion = await InvoiceService.generateInvoiceNumber(user.id);
+  
+    res.status(200).json({
+      invoice_number: invoiceNumberSuggestion
+    });
+  } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server error' });
   }

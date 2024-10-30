@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import moment from 'moment';
 import {
-  SET_DRAFT, CLEAR_DRAFT,
+  SET_DRAFT, UPDATE_DRAFT, CLEAR_DRAFT,
   SEND, SEND_SUCCESS, SEND_FAIL, CLEAR_SEND_STATUS,
   LOAD, LOAD_SUCCESS, LOAD_FAIL,
   PAY, PAY_SUCCESS, PAY_FAIL,
@@ -30,6 +31,11 @@ const invoiceReducer = (state = initialInvoiceState, { type, payload }) => {
       return {
         ...state,
         draft: payload,
+      };
+    case UPDATE_DRAFT:
+      return {
+        ...state,
+        draft: !!state.draft ? { ...state.draft, ...payload } : payload,
       };
     case CLEAR_DRAFT:
       return {
@@ -114,7 +120,7 @@ export const selectDraftPreviewData = createSelector(
     state => state.invoice.draft,
   ],
   (sender, invoiceDraft) => {
-    const { recipient, items, sellerNote } = invoiceDraft || { items: [] };
+    const { recipient, items, sellerNote, invoiceNumber, dueDate } = invoiceDraft || { items: [] };
     const previewData = {};
 
     previewData.sender = {
@@ -125,9 +131,9 @@ export const selectDraftPreviewData = createSelector(
     };
     previewData.email = sender.email;
 
-    previewData.invoiceNumber = '00005'; // todo
-    previewData.issueDate = '2024/10/4'; // todo
-    previewData.dueDate = '2024/10/6'; // todo
+    previewData.invoiceNumber = invoiceNumber; // todo
+    previewData.issueDate = moment().format('MMM D, YYYY'); // todo
+    previewData.dueDate = dueDate ? moment(dueDate, 'DD/MM/YY').format('MMM D, YYYY') : 'On receipt'; // todo
 
     previewData.totalAmount = items.length ?
       items.reduce((total, item) => total + item.quantity * item.price, 0) :
@@ -179,8 +185,8 @@ export const selectLoadedPreviewData = createSelector(
       email: payer.email,
     };
     previewData.invoiceNumber = invoice.invoice_number;
-    previewData.issueDate = invoice.issue_date;
-    previewData.dueDate = invoice.due_date || 'Upon retrieval';
+    previewData.issueDate = moment(invoice.issue_date).format('MMM D, YYYY');
+    previewData.dueDate = invoice.due_date ? moment(invoice.due_date).format('MMM D, YYYY') : 'On receipt';
     previewData.note = invoice.notes;
 
     previewData.totalAmount = items.length ?

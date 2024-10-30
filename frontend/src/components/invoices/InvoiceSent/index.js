@@ -5,6 +5,7 @@ import { CopyOutlined, CloseOutlined } from '@ant-design/icons';
 import { clearSendStatus } from '../../../actions/invoice_actions';
 
 import './index.scss';
+import { generateInvoiceLink } from '../../../utils/generators';
 
 
 const InvoiceSent = ({ open, invoice, onClose }) => {
@@ -31,7 +32,7 @@ const InvoiceSent = ({ open, invoice, onClose }) => {
               <CopyOutlined />
               <span>Copy to your clipboard</span>
             </div>
-            <Button type="link" onClick={() => navigator.clipboard.writeText("Your Invoice Link")}>Copy link</Button>
+            <Button type="link" onClick={() => navigator.clipboard.writeText(generateInvoiceLink(invoice?.id))}>Copy link</Button>
           </div>
         </div>
 

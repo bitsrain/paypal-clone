@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { INVOICE_PAID, INVOICE_RECEIVED, MONEY_RECEIVED, MONEY_SENT, PAID_INVOICE, REFUND_RECEIVED, REFUND_SENT } from "../constants/transaction_types";
 
 export const invoiceDraftToRequestable = (invoice) => {
@@ -7,13 +8,15 @@ export const invoiceDraftToRequestable = (invoice) => {
     items,
     sellerNote,
     shipGoods,
+    dueDate,
   } = invoice;
 
   return {
     payer_id: recipient.id,
     items: items.map((item) => ({ ...item, unit_price: item.price })),
     notes: sellerNote,
-    invoice_number: invoiceNumber || 'INV-0010',
+    invoice_number: invoiceNumber,
+    due_date: dueDate ? moment(dueDate, 'DD/MM/YY').format('YYYY-MM-DD') : null,
     ship_goods: shipGoods,
   };
 };

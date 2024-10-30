@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Input, Collapse } from 'antd';
 import { UserOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 
-import { setDraft } from '../../../actions/invoice_actions';
+import { setDraft, updateDraft } from '../../../actions/invoice_actions';
 import UserSearchInput from '../../common/UserSearchInput';
 import './InvoiceForm.scss';
 import InvoiceItems from './InvoiceItems';
@@ -18,7 +18,7 @@ const InvoiceForm = () => {
 
   useEffect(() => {
     dispatch(
-      setDraft({
+      updateDraft({
         recipient,
         items: items.filter(item => !!item),
         sellerNote,

@@ -1,4 +1,5 @@
 export const SET_DRAFT = 'invoice/set_draft';
+export const UPDATE_DRAFT = 'invoice/update_draft';
 export const CLEAR_DRAFT = 'invoice/clear_draft';
 export const SEND = 'invoice/send';
 export const SEND_FAIL = 'invoice/send_fail';
@@ -14,6 +15,11 @@ export const CLEAR_LOADED = 'invoice/clear_loaded';
 
 export const setDraft = payload => ({
   type: SET_DRAFT,
+  payload,
+});
+
+export const updateDraft = payload => ({
+  type: UPDATE_DRAFT,
   payload,
 });
 
