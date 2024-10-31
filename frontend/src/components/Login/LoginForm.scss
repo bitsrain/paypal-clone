@@ -1,12 +1,17 @@
 /* LoginForm.scss */
 .login-form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
 
+  .nav-message {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #389e0d;
+  }
+
   .login-form {
-      width: 300px;
+      width: 400px;
+      margin: 50px auto 0;
       padding: 20px;
       background: #fff;
       border-radius: 10px;

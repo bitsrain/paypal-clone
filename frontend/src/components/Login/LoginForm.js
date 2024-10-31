@@ -5,10 +5,13 @@ import { Message, useLocalize } from 'localize-react';
 import { login } from '../../utils/auth';
 import { authenticate } from '../../actions/auth_actions';
 import './LoginForm.scss';
+import { useLocation } from 'react-router-dom';
 
 const LoginForm = () => {
   const { translate: tr } = useLocalize();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const { message: navMessage } = location.state || {};
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -33,6 +36,11 @@ const LoginForm = () => {
 
   return (
     <div className="login-form-container">
+      {!!navMessage && (
+        <div>
+          <Alert className="nav-message" type="success" message={navMessage} banner />
+        </div>
+      )}
       <Form
         name="login"
         initialValues={{ remember: true }}
@@ -45,12 +53,12 @@ const LoginForm = () => {
 
         {errorMessage && (
           <Alert
-            description={errorMessage}
+            message={errorMessage}
             type="error"
             className="error-alert"
           />
         )}
-        
+
         <Form.Item
           name="email"
           rules={[{ required: true, message: tr('login.msg.email_required') }]}

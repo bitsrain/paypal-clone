@@ -1,0 +1,32 @@
+.personal-info-form-container {
+  .ant-alert {
+    margin-bottom: 20px;
+  }
+
+  .form-top-line {
+    justify-content: flex-start;
+  }
+
+  .form-divider {
+    margin: 24px 0; // Adjust spacing as needed
+  }
+
+  .agreement-text {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+    line-height: 1.5;
+
+    a {
+      color: #0070ba;
+      font-weight: 500;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

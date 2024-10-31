@@ -1,0 +1,72 @@
+.phone-form-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #fff;
+
+  .phone-form-top-line {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+
+    .phone-form-back-arrow {
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #1d1e1f;
+    }
+  }
+
+  .paypal-logo {
+    font-size: 3rem;
+    color: #0070ba;
+    margin-bottom: 20px;
+  }
+
+  .phone-form-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #1d1e1f;
+    margin-bottom: 50px;
+  }
+
+  .phone-form {
+    .ant-input {
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .ant-form-item-explain {
+      text-align: left;
+    }
+
+    .phone-form-submit-button {
+      background-color: #0070ba;
+      border-color: #0070ba;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+      height: 48px;
+      border-radius: 24px;
+      min-width: 200px;
+      padding: 0 30px;
+      margin-top: 20px;
+
+      &:hover,
+      &:focus {
+        background-color: #005ea6;
+        border-color: #005ea6;
+      }
+    }
+  }
+
+  .phone-form-disclaimer {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+}

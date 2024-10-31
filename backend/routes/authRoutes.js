@@ -26,16 +26,25 @@ router.post('/login', async (req, res, next) => {
 });
 
 // Signup route
-router.post(
-  '/signup',
-  passport.authenticate('signup', { session: false }),
-  async (req, res, next) => {
+router.post('/signup', (req, res, next) => {
+  passport.authenticate('signup', { session: false }, (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+
+    if (!user) {
+      // If user creation failed, return the error message from Passport strategy
+      return res.status(400).json({ message: info.message || 'Signup failed' });
+    }
+
+    // Signup was successful
     res.json({
       message: 'Signup successful',
-      user: req.user
+      user
     });
-  }
-);
+  })(req, res, next);
+});
+
 
 router.get('/profile', protect, (req, res) => {
   return res.json(req.user);

@@ -47,8 +47,10 @@ passport.use(
 
         const {
           full_name,
+          phone,
           gender,
           address_line_1,
+          address_line_2,
           city,
           state,
           date_of_birth,
@@ -59,7 +61,9 @@ passport.use(
           email,
           password,
           full_name,
+          phone,
           address_line_1,
+          address_line_2,
           city,
           state,
           date_of_birth,

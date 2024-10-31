@@ -8,6 +8,10 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       unique: true
     },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false
@@ -18,7 +22,7 @@ module.exports = (sequelize, Sequelize) => {
     },
     date_of_birth: {
       type: DataTypes.DATEONLY,
-      allowNull: false
+      allowNull: true
     },
     address_line_1: {
       type: DataTypes.STRING,
@@ -37,7 +41,7 @@ module.exports = (sequelize, Sequelize) => {
     },
     gender: {
       type: DataTypes.ENUM('male', 'female'),
-      allowNull: false
+      allowNull: true
     }
   });
 
@@ -54,7 +58,7 @@ module.exports = (sequelize, Sequelize) => {
   User.afterCreate((user, options) => {
     sequelize.models.balance.create({
       user_id: user.id,
-      amount: 0,
+      amount: 5000,
       currency: 'USD',
       status: 'active',
     });

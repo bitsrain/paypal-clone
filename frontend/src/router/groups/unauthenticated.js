@@ -1,4 +1,5 @@
 import LoginPage from '../../components/Login';
+import SignUp from '../../components/SignUp';
 
 export default [
   {
@@ -8,5 +9,9 @@ export default [
   {
     path: "/login",
     element: <LoginPage />,
+  },
+  {
+    path: "/sign-up",
+    element: <SignUp />,
   },
 ];

@@ -1,0 +1,67 @@
+.code-form-container {
+  text-align: center;
+  padding: 20px;
+
+  .form-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #1d1e1f;
+    margin-bottom: 8px;
+  }
+
+  .form-subtitle {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 16px;
+  }
+
+  .resend-link {
+    font-size: 1rem;
+    color: #0070ba;
+    font-weight: 500;
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+
+  .qa-text {
+    font-size: 0.875rem;
+    color: #ff4d4f;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .code-form {
+    margin-top: 48px;
+    .ant-otp {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+
+      .ant-input {
+        width: 36px; // Narrower width for each input
+        height: 56px; // Taller height to resemble the design
+        font-size: 1.5rem;
+        text-align: center;
+        border-radius: 8px;
+        border: 1px solid #d9d9d9;
+      }
+
+      .ant-input:focus {
+        border-color: #0070ba;
+        box-shadow: 0 0 5px rgba(0, 112, 186, 0.2);
+      }
+    }
+
+    .call-link {
+      font-size: 1rem;
+      color: #0070ba;
+      font-weight: 500;
+      display: inline-block;
+      margin-top: 10px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
