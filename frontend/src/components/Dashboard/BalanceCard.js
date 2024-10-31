@@ -1,16 +1,32 @@
-import React from 'react';
-import { Button, Dropdown, Menu } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Dropdown, Menu, Skeleton } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
+import DashboardService from '../../services/dashboard_service';
 import './BalanceCard.scss';
 
+const menu = (
+  <Menu>
+    <Menu.Item key="1">Action 1</Menu.Item>
+    <Menu.Item key="2">Action 2</Menu.Item>
+    <Menu.Item key="3">Action 3</Menu.Item>
+  </Menu>
+);
+
 const BalanceCard = () => {
-  const menu = (
-    <Menu>
-      <Menu.Item key="1">Action 1</Menu.Item>
-      <Menu.Item key="2">Action 2</Menu.Item>
-      <Menu.Item key="3">Action 3</Menu.Item>
-    </Menu>
-  );
+  const [balance, setBalance] = useState(null);
+
+  useEffect(() => {
+    const fetchBalance = async () => {
+      try {
+        const balanceAmount = await DashboardService.getBalance();
+        setBalance(balanceAmount);
+      } catch (err) {
+        console.log('Error while fetching balance', err);
+      }
+    };
+
+    fetchBalance();
+  }, []);
 
   return (
     <div className="balance-card">
@@ -22,7 +38,11 @@ const BalanceCard = () => {
       </div>
 
       <div className="balance-amount">
-        <span className="amount">420.00 US$</span>
+        {balance === null ? (
+          <Skeleton.Input active size="large" />
+        ) : (
+          <span className="amount">{balance} US$</span>
+        )}
       </div>
 
       <div className="balance-status">

@@ -45,11 +45,6 @@ router.post('/signup', (req, res, next) => {
   })(req, res, next);
 });
 
-
-router.get('/profile', protect, (req, res) => {
-  return res.json(req.user);
-});
-
 router.get('/protected', protect, (req, res) => {
   res.json({ message: 'Protected route accessed successfully' });
 });
