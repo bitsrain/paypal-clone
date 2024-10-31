@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Input, Avatar, Typography, Spin } from 'antd';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { send } from '../../../actions/send_actions';
 import './index.scss';
+import UserAvatar from '../../common/UserAvatar';
 
 const { TextArea } = Input;
 const { Text } = Typography;
@@ -44,7 +46,7 @@ const Preview = () => {
     <div className="send-money-form">
       {/* User Info Section */}
       <div className="user-info">
-        <Avatar size={50} style={{ backgroundColor: '#f23f5f' }}>JW</Avatar>
+        <UserAvatar name={recipient?.full_name} />
         <div className="details">
           <Typography.Title level={4} style={{ margin: 0 }}>
             {recipient?.full_name}
@@ -90,12 +92,9 @@ const Preview = () => {
         >
           Next
         </Button>
-        <Button
-          type="link"
-          className="cancel-btn"
-        >
+        <Link to="/send" className="cancel-link">
           Cancel
-        </Button>
+        </Link>
       </div>
 
       {sending && <Spin spinning fullscreen />}

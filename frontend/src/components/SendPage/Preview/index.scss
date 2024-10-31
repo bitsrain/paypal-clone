@@ -78,24 +78,16 @@
     flex-direction: column;
     align-items: center;
 
-    .next-btn, .cancel-btn {
-      width: 100%;
-      height: 45px;
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-
     .next-btn {
-      background-color: #007bff;
-      border-radius: 6px;
-      color: #fff;
-    }
-
-    .cancel-btn {
-      border-radius: 6px;
-      color: #007bff;
-      background: none;
-      text-align: center;
+      width: 250px;
+      background-color: #0070f3;
+      border-radius: 30px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

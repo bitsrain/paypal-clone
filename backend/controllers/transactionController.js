@@ -245,6 +245,7 @@ exports.refund = async (req, res) => {
       refund: {
         ...refund.toJSON(),
         recipient: transaction.sender,
+        parent_transaction_slug: transaction.slug,
       },
     });
   } catch (error) {

@@ -15,44 +15,46 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <div className="logo">
-        <Link to="/">
-          <p role="img" aria-label="PayPal Logo" className="paypal-logo paypal-logo-long"></p>
-        </Link>
-      </div>
-      <Menu mode="horizontal" theme="dark" className="left-menu">
-        <Menu.Item key="dashboard">
-          <Link to="/dashboard">Home</Link>
-        </Menu.Item>
-        <Menu.Item key="send-and-request">
-          <Link to="/send">Send</Link>
-        </Menu.Item>
-        <Menu.Item key="wallet">
-          <Link to="/wallet">Wallet</Link>
-        </Menu.Item>
-        <Menu.Item key="activity">
-          <Link to="/transactions">Activity</Link>
-        </Menu.Item>
-        <Menu.Item key="help">
-          <Link to="/help">Help</Link>
-        </Menu.Item>
-      </Menu>
-      <div className="right-menu">
-        <Menu mode="horizontal" theme="dark">
-          <Menu.Item key="notifications" className="icon-only">
-            <Link to="/notifications">
-              <BellOutlined />
-            </Link>
+      <div className="content">
+        <div className="logo">
+          <Link to="/">
+            <p role="img" aria-label="PayPal Logo" className="paypal-logo paypal-logo-long inversed"></p>
+          </Link>
+        </div>
+        <Menu mode="horizontal" theme="dark" className="left-menu">
+          <Menu.Item key="dashboard">
+            <Link to="/dashboard">Home</Link>
           </Menu.Item>
-          <Menu.Item key="settings" className="icon-only">
-            <Link to="/settings">
-              <SettingOutlined />
-            </Link>
+          <Menu.Item key="send-and-request">
+            <Link to="/send">Send</Link>
           </Menu.Item>
-          <Menu.Item key="logout">
-            <Link to="/logout" onClick={handleLogout}>LOG OUT</Link>
+          <Menu.Item key="wallet">
+            <Link to="/wallet">Wallet</Link>
+          </Menu.Item>
+          <Menu.Item key="activity">
+            <Link to="/transactions">Activity</Link>
+          </Menu.Item>
+          <Menu.Item key="help">
+            <Link to="/help">Help</Link>
           </Menu.Item>
         </Menu>
+        <div className="right-menu">
+          <Menu mode="horizontal" theme="dark">
+            <Menu.Item key="notifications" className="icon-only">
+              <Link to="/notifications">
+                <BellOutlined />
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="settings" className="icon-only">
+              <Link to="/settings">
+                <SettingOutlined />
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="logout">
+              <Link to="#" onClick={handleLogout}>LOG OUT</Link>
+            </Menu.Item>
+          </Menu>
+        </div>
       </div>
     </div>
   );

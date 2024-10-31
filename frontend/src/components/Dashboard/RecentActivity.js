@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadList } from '../../actions/transaction_actions';
 import TransactionSummary from '../transactions/TransactionDetail/TransactionSummary';
-import './RecentActivity.scss';
 import { RECENT } from '../../constants/transaction_filters';
+import './RecentActivity.scss';
 
 const RecentActivity = () => {
   const dispatch = useDispatch();

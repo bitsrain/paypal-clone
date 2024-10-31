@@ -18,6 +18,7 @@ const ProtectedRoute = () => {
   }, [isProfileDue]);
 
   if (!isAuthenticated) {
+    console.log('Hello WORLD...');
     return <Navigate to="/login" />;
   } else if (!isLoaded) {
     return <div>Loading...</div>;

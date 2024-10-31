@@ -1,25 +1,33 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { clear as clearSendState } from '../../../actions/send_actions';
 import './index.scss';
 
 const { Text } = Typography;
 
 const Success = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Get the values from the Redux store
   const transfer = useSelector((state) => state.send.transfer);
   const recipient = useSelector((state) => state.send.recipient);
 
   const handleSendMore = () => {
-    navigate('/send-money'); // Update with correct path
+    navigate('/send', { replace: true }); // Update with correct path
   };
 
   const handleGoToSummary = () => {
-    navigate('/summary'); // Update with correct path
+    navigate('/transactions', { replace: true }); // Update with correct path
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearSendState());
+    }
+  }, []);
 
   return (
     <div className="success-message-container">

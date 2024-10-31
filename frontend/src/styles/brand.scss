@@ -10,4 +10,8 @@
   width: 34px;
   height: 40px;
   display: block;
+
+  &.inversed {
+    background: transparent url("~/public/images/paypal-inversed.svg") top center no-repeat;
+  }
 }

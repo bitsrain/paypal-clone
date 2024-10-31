@@ -6,6 +6,7 @@ import { login } from '../../utils/auth';
 import { authenticate } from '../../actions/auth_actions';
 import './LoginForm.scss';
 import { useLocation } from 'react-router-dom';
+import LinkButton from '../common/LinkButton';
 
 const LoginForm = () => {
   const { translate: tr } = useLocalize();
@@ -88,9 +89,9 @@ const LoginForm = () => {
         <div className="or-separator">or</div>
 
         <Form.Item>
-          <Button type="default" className="signup-form-button" size="large">
+          <LinkButton to="/sign-up" type="default" className="signup-form-button" size="large">
             {tr('login.sign_up')}
-          </Button>
+          </LinkButton>
         </Form.Item>
       </Form>
     </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Dropdown, Menu, List, Avatar } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
+import LinkButton from '../common/LinkButton';
 import QuickActions from './QuickActions';
 import './Panels.scss';
 import BalanceCard from './BalanceCard';
@@ -23,7 +24,7 @@ const Panels = () => {
       <div className="right-section">
         <div className="content">
           <div className="action-buttons">
-            <Button type="primary" size="large">Send</Button>
+            <LinkButton to="/send" type="primary" size="large">Send</LinkButton>
             <Button type="primary" size="large" ghost>Request</Button>
           </div>
           <QuickActions />

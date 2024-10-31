@@ -5,6 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { clearTransaction, loadTransaction, refund } from '../../actions/refund_actions';
 import './index.scss';
+import LinkButton from '../common/LinkButton';
 
 const { Title, Text, Link } = Typography;
 
@@ -129,7 +130,7 @@ const IssueRefund = () => {
           <Button type="primary" htmlType="submit">
             Issue Refund
           </Button>
-          <Button>Cancel</Button>
+          <LinkButton to={`/transactions/v/${transaction.slug}`}>Cancel</LinkButton>
         </div>
       </Form>
     </div>

@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { SET_RECIPIENT, SEND, SEND_SUCCESS, SEND_FAIL } from '../actions/send_actions';
+import { SET_RECIPIENT, SEND, SEND_SUCCESS, SEND_FAIL, CLEAR } from '../actions/send_actions';
 
 export const initialSendState = {
   recipient: null,
@@ -14,6 +14,8 @@ const sendReducer = (state = initialSendState, { type, payload }) => {
         ...state,
         recipient: payload,
       };
+    case CLEAR:
+      return initialSendState;
     case SEND:
       return {
         ...state,

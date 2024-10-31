@@ -2,38 +2,38 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  max-width: 400px;
-  margin-left: 3.5rem;
-}
+  width: 50%;
+  max-width: 600px;
 
-.send-money-title {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.send-money-input {
-  width: 100%;
-
-  input {
+  .send-money-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  
+  .send-money-input {
+    width: 100%;
+  
+    input {
+      border-radius: 25px;
+      height: 40px;
+      padding-left: 40px; // space for the search icon
+    }
+  
+    .ant-input-prefix {
+      margin-right: 10px;
+      color: #c0c0c0; // light gray for the search icon
+    }
+  }
+  
+  .send-money-button {
     border-radius: 25px;
     height: 40px;
-    padding-left: 40px; // space for the search icon
-  }
-
-  .ant-input-prefix {
-    margin-right: 10px;
-    color: #c0c0c0; // light gray for the search icon
-  }
-}
-
-.send-money-button {
-  border-radius: 25px;
-  height: 40px;
-  padding: 0 20px;
-  // background-color: #d9d9d9; // disabled button style
-
-  &:disabled {
-    background-color: #f0f0f0; // lighter gray for the disabled state
-    color: #a9a9a9;
+    padding: 0 20px;
+    // background-color: #d9d9d9; // disabled button style
+  
+    &:disabled {
+      background-color: #f0f0f0; // lighter gray for the disabled state
+      color: #a9a9a9;
+    }
   }
 }

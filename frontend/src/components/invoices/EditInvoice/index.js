@@ -7,9 +7,11 @@ import InvoiceForm from './InvoiceForm';
 import PreviewPanel from './PreviewPanel';
 import InvoiceSent from '../InvoiceSent';
 import './index.scss';
+import { useNavigate } from 'react-router-dom';
 
 const EditInvoicePage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const draft = useSelector(state => state.invoice.draft);
   const sentInvoice = useSelector(state => state.invoice.sentInvoice);
   const sending = useSelector(state => state.invoice.sending);
@@ -29,6 +31,7 @@ const EditInvoicePage = () => {
 
   const concludeSend = () => {
     dispatch(clearSendStatus());
+    navigate('/');
   };
 
   return (

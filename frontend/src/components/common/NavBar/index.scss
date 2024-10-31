@@ -1,11 +1,17 @@
 /* Navbar.scss */
 
 .navbar {
-  background-color: #001f3f;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 24px;
+  background-color: #142c8e;
+  padding: 20px;
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
   
   .ant-menu {
     background-color: transparent;
@@ -13,6 +19,7 @@
   }
   
   .ant-menu-item {
+    font-size: 16px;
     color: #fff;
     &:hover {
       background-color: #001630;
@@ -30,6 +37,7 @@
   
   .left-menu {
     flex: 1;
+    margin-left: 30px;
   }
   
   .right-menu {

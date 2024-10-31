@@ -1,11 +1,16 @@
 import React from 'react';
-import Navbar from '../common/NavBar';
-import SubNav from '../common/SubNav';
 import SendForm from './SendForm';
+import './index.scss';
+import MoreWaysToSend from './MoreOptions';
 
 const SendPage = () => {
   return (
-    <SendForm />
+    <div className="send-page">
+      <div className="content">
+        <SendForm />
+        <MoreWaysToSend />
+      </div>
+    </div>
   );
 };
 
