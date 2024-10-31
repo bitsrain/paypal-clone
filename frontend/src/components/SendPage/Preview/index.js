@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Input, Avatar, Typography, Spin } from 'antd';
+import { Button, Input, Alert, Typography, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +15,7 @@ const Preview = () => {
   const recipient = useSelector(state => state.send.recipient);
   const sending = useSelector(state => state.send.sending);
   const transferSuccess = useSelector(state => state.send.success);
+  const transferError = useSelector(state => state.send.error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -44,6 +45,10 @@ const Preview = () => {
 
   return (
     <div className="send-money-form">
+      {!!transferError && (
+        <Alert type="error" showIcon message={transferError} />
+      )}
+
       {/* User Info Section */}
       <div className="user-info">
         <UserAvatar name={recipient?.full_name} />

@@ -136,7 +136,7 @@ exports.payInvoice = async (req, res) => {
     }
 
     myBalance.amount -= +invoice.amount;
-    oppBalance.amount += +invoice.amount;
+    oppBalance.amount = +oppBalance.amount + +invoice.amount; // decimal field type issue
     await myBalance.save({ transaction: t });
     await oppBalance.save({ transaction: t });
 

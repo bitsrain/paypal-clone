@@ -19,7 +19,7 @@ function* send({ payload }) {
     });
     yield put({ type: SEND_SUCCESS, payload: response.data });
   } catch (error) {
-    yield put({ type: SEND_FAIL, payload: error });
+    yield put({ type: SEND_FAIL, payload: error.response?.data?.error || 'Unknown error. Please support contact' });
   }
 }
 

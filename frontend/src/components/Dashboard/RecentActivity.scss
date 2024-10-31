@@ -13,14 +13,16 @@
 
   .activity-item {
     display: block;
-    background-color: #fff; /* White background for each item */
-    border: 1px solid #e0e0e0; /* Flat with gray outline */
+    background-color: #fff;
     padding: 0px;
-    border-radius: 10px; /* Slight rounding for individual items */
     margin-bottom: 10px;
+    border-bottom: none;
 
     a {
+      display: block;
       color: black;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
     }
   }
 }

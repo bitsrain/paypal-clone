@@ -17,12 +17,12 @@ const externalLinks = [
   {
     name: 'Payoneer Card',
     type: 'Credit ••••65',
-    imgUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Payoneer_Logo.svg/2560px-Payoneer_Logo.svg.png',
+    imgUrl: '/images/payoneer.jpg',
   },
   {
     name: 'Visa Card',
     type: 'Credit ••••45',
-    imgUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png',
+    imgUrl: '/images/Visa_Logo.png',
   },
 ];
 

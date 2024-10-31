@@ -5,6 +5,7 @@ export const initialSendState = {
   recipient: null,
   success: false,
   sending: false,
+  error: null,
 };
 
 const sendReducer = (state = initialSendState, { type, payload }) => {
@@ -20,6 +21,8 @@ const sendReducer = (state = initialSendState, { type, payload }) => {
       return {
         ...state,
         sending: true,
+        error: null,
+        success: false,
       };
     case SEND_SUCCESS:
       return {
@@ -27,11 +30,13 @@ const sendReducer = (state = initialSendState, { type, payload }) => {
         success: true,
         transfer: payload.transfer,
         sending: false,
+        error: null,
       };
     case SEND_FAIL:
       return {
         ...state,
         sending: false,
+        error: payload,
       };
     default:
       return state;

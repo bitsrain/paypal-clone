@@ -1,4 +1,4 @@
-const { Transfer, Balance, Activity } = require('../models');
+const { Transfer, Balance, Activity, Transaction } = require('../models');
 const sequelize = require('../database');
 
 exports.createTransfer = async (req, res) => {
@@ -12,7 +12,10 @@ exports.createTransfer = async (req, res) => {
       message,
     } = req.body;
 
-    const balance = await Balance.findOne({ where: { user_id: req.user.id } });
+    const myBalance = await Balance.findOne({ where: { user_id: req.user.id } });
+    if (myBalance.amount < amount) {
+      return res.status(400).json({ error: 'Insufficient balance' });
+    }
 
     const transfer = await Transfer.create({
       user_id: req.user.id,
@@ -20,8 +23,26 @@ exports.createTransfer = async (req, res) => {
       amount,
       currency,
       message,
-      balance_id: balance.id,
+      balance_id: myBalance.id,
     }, { transaction: t });
+
+    const transaction = await Transaction.create({
+      sender_id: transfer.user_id,
+      recipient_id: destId,
+      amount,
+      currency: currency,
+      trigger_id: transfer.id,
+      trigger_type: 'Transfer',
+      comment: message,
+    }, { transaction: t });
+
+    const destBalance = await Balance.findOne({ where: { user_id: destId } });
+    myBalance.amount -= amount;
+    destBalance.amount = +destBalance.amount + amount; // decimal type issue
+    await myBalance.save({ transaction: t });
+    await destBalance.save({ transaction: t });
+
+    await transfer.update({ transaction_id: transaction.id }, { transaction: t });
 
     await Activity.create({
       user_id: req.user.id,

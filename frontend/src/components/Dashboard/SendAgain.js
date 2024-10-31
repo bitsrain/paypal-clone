@@ -7,9 +7,9 @@ const { Text } = Typography;
 
 const sendAgainUsers = [
   { name: 'Josh Budd', avatar: 'JB', color: '#9b59b6' },
-  { name: 'filip Ljubinic', avatar: 'https://randomuser.me/api/portraits/men/1.jpg', image: true },
+  { name: 'filip Ljubinic', avatar: '/images/avatar1.jpg', image: true },
   { name: '101SysCo', avatar: 'store', icon: true },
-  { name: 'Anton Gayevoy', avatar: 'https://randomuser.me/api/portraits/men/2.jpg', image: true },
+  { name: 'Anton Gayevoy', avatar: '/images/avatar2.png', image: true },
   { name: 'Search', avatar: <SearchOutlined />, color: '#001f3f', icon: true },
 ];
 

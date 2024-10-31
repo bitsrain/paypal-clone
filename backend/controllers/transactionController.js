@@ -214,7 +214,7 @@ exports.refund = async (req, res) => {
     }
 
     myBalance.amount -= amount;
-    oppBalance.amount += amount;
+    oppBalance.amount = +oppBalance.amount + amount;
     await myBalance.save({ transaction: t });
     await oppBalance.save({ transaction: t });
 

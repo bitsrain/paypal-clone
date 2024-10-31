@@ -66,7 +66,7 @@ const InvoiceItems = ({ initialItems = [], onChange }) => {
           />
         );
       })}
-      <a href="#" onClick={handleAddItem}>+ Add more items</a>
+      <a href="javascript:void(0)" onClick={handleAddItem}>+ Add more items</a>
     </div>
   );
 };
