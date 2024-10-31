@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 const morgan = require('morgan');
 const routes = require('./routes');
 const { errorHandler } = require('./middlewares/errorMiddleware');
+const path = require('path');
 
 require('dotenv').config();
 
@@ -27,6 +28,7 @@ const sequelize = require('./database');
 
 require('./config/passport');
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/', routes);
 // app.use(errorHandler);
 

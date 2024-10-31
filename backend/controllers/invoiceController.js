@@ -15,6 +15,7 @@ exports.createInvoice = async (req, res) => {
       invoice_number,
       ship_goods,
       due_date,
+      attachments,
     } = req.body;
 
     const totalAmount = invoiceTotalFromItems(items);
@@ -30,6 +31,7 @@ exports.createInvoice = async (req, res) => {
       status: 'pending',
       issue_date: new Date(),
       due_date,
+      attachments
     }, { transaction: t });
 
     // create transaction for `invoice received` notif; deleted on `invoice pay`

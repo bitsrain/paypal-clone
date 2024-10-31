@@ -1,10 +1,15 @@
 .invoice-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 15px 20px;
   background-color: #fff; /* White background */
   box-shadow: rgba(0, 0, 0, 0.04) 0rem 0rem 0.5rem, rgba(0, 0, 0, 0.1) 0rem 0.125rem 1.125rem;
+
+  .content-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0px auto;
+  }
 
   .invoice-info {
     display: flex;
@@ -51,8 +56,11 @@
       padding: 0 25px;
       font-size: 14px;
       height: 40px;
-      background-color: #0070f3;
-      border-color: #0070f3;
+
+      &:not(:disabled) {
+        background-color: #0070f3;
+        border-color: #0070f3;
+      }
     }
   }
 }

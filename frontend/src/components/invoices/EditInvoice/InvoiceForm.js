@@ -7,6 +7,7 @@ import { setDraft, updateDraft } from '../../../actions/invoice_actions';
 import UserSearchInput from '../../common/UserSearchInput';
 import './InvoiceForm.scss';
 import InvoiceItems from './InvoiceItems';
+import InvoiceFileUpload from './InvoiceFileUpload';
 
 const { Panel } = Collapse;
 
@@ -61,6 +62,7 @@ const InvoiceForm = () => {
             onChange={handleNoteChange}
             showCount
           />
+          <InvoiceFileUpload />
         </Panel>
       </Collapse>
     </div>

@@ -59,6 +59,11 @@ module.exports = (sequelize, Sequelize) => {
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    attachments: {
+      type: DataTypes.JSON,
+      allowNull: true,
+      defaultValue: [],
+    },
     ship_goods: {
       type: DataTypes.BOOLEAN,
       allowNull:false,

@@ -120,8 +120,10 @@ export const selectDraftPreviewData = createSelector(
     state => state.invoice.draft,
   ],
   (sender, invoiceDraft) => {
-    const { recipient, items, sellerNote, invoiceNumber, dueDate } = invoiceDraft || { items: [] };
-    const previewData = {};
+    const { recipient, items, sellerNote, invoiceNumber, dueDate, attachments } = invoiceDraft || { items: [] };
+    const previewData = {
+      attachments,
+    };
 
     previewData.sender = {
       name: sender.full_name,
@@ -166,11 +168,12 @@ export const selectLoadedPreviewData = createSelector(
   ],
   (me, invoice) => {
     if (!invoice) return null;
-    const { user, payer, invoice_items: items, final_status: status, updatedAt, paid_at: paidAt } = invoice;
+    const { user, payer, invoice_items: items, final_status: status, updatedAt, paid_at: paidAt, attachments } = invoice;
     const previewData = {
       status,
       updatedAt,
       paidAt,
+      attachments,
     };
 
     previewData.sender = {

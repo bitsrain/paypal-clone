@@ -9,6 +9,7 @@ export const invoiceDraftToRequestable = (invoice) => {
     sellerNote,
     shipGoods,
     dueDate,
+    attachments,
   } = invoice;
 
   return {
@@ -18,6 +19,7 @@ export const invoiceDraftToRequestable = (invoice) => {
     invoice_number: invoiceNumber,
     due_date: dueDate ? moment(dueDate, 'DD/MM/YY').format('YYYY-MM-DD') : null,
     ship_goods: shipGoods,
+    attachments,
   };
 };
 

@@ -1,7 +1,11 @@
 import React from 'react';
-import { MailFilled } from '@ant-design/icons';
+import axios from 'axios';
+import { MailFilled, DownloadOutlined } from '@ant-design/icons';
+import { Typography } from 'antd';
 import './index.scss';
 import InvoiceStatusBadge from '../../badges/InvoiceStatusBadge';
+
+const { Link } = Typography;
 
 const InvoicePreview = ({ invoice, showStatus = false }) => {
   const {
@@ -17,7 +21,10 @@ const InvoicePreview = ({ invoice, showStatus = false }) => {
     total,
     note,
     status,
+    attachments,
   } = invoice;
+
+  const hasAttachments = !!attachments && attachments.length > 0;
 
   return (
     <div className="invoice-preview">
@@ -89,10 +96,28 @@ const InvoicePreview = ({ invoice, showStatus = false }) => {
       </div>
 
       {/* Note Section */}
-      <div className="note-section">
-        <h3 className="note-title">Seller note to customer</h3>
-        <div className="note-content">{note}</div>
-      </div>
+      {!!note && (
+        <div className="note-section">
+          <h3 className="note-title">Seller note to customer</h3>
+          <div className="note-content">{note}</div>
+        </div>
+      )}
+
+      {hasAttachments && (
+        <div className="attachments-section">
+          <h3 className="attachments-title">Attachments ({attachments.length})</h3>
+          <div className="attachments-content">
+            {attachments.map((attachment) => (
+              <div key={attachment.name} className="attachment-item">
+                <DownloadOutlined className="download-icon" />
+                <Link href={`${axios.defaults.baseURL}${attachment.url}`} target="_blank" download>
+                  {attachment.name}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -62,30 +62,37 @@ const InvoiceToolbar = ({ onSend }) => {
 
   return (
     <div className="invoice-toolbar">
-      <div className="invoice-info">
-        <Button type="link" className="back-button">
-          <LeftOutlined />
-        </Button>
-        <div className="invoice-details">
-          <h2>Invoice No. {invoice?.invoiceNumber}</h2>
-          <span className="invoice-meta">
-            Date: {today.current} • Due: {invoice?.dueDate || 'On receipt'}{' '}
-            <Button type="link" className="edit-link" onClick={handleOpenSettings}>
-              Edit
-            </Button>
-          </span>
-        </div>
-      </div>
-
-      <div className="actions">
-        <Dropdown overlay={moreActionsMenu} trigger={['click']}>
-          <Button type="default" className="more-actions-btn">
-            More actions <DownOutlined />
+      <div className="content-container">
+        <div className="invoice-info">
+          <Button type="link" className="back-button">
+            <LeftOutlined />
           </Button>
-        </Dropdown>
-        <Button type="primary" className="send-btn" onClick={onSend}>
-          Send
-        </Button>
+          <div className="invoice-details">
+            <h2>Invoice No. {invoice?.invoiceNumber}</h2>
+            <span className="invoice-meta">
+              Date: {today.current} • Due: {invoice?.dueDate || 'On receipt'}{' '}
+              <Button type="link" className="edit-link" onClick={handleOpenSettings}>
+                Edit
+              </Button>
+            </span>
+          </div>
+        </div>
+
+        <div className="actions">
+          <Dropdown overlay={moreActionsMenu} trigger={['click']}>
+            <Button type="default" className="more-actions-btn">
+              More actions <DownOutlined />
+            </Button>
+          </Dropdown>
+          <Button
+            type="primary"
+            className="send-btn"
+            onClick={onSend}
+            disabled={!invoice?.recipient || !invoice?.items?.length}
+          >
+            Send
+          </Button>
+        </div>
       </div>
 
       <Drawer
