@@ -4,7 +4,7 @@ import SignUp from '../../components/SignUp';
 export default [
   {
     path: "/",
-    element: <div>Home Page</div>,
+    element: <LoginPage />, // fix log out redirection to /login
   },
   {
     path: "/login",
