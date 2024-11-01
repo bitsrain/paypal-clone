@@ -58,7 +58,7 @@ Transaction.belongsTo(User, {
 });
 Transaction.hasMany(Refund, { as: 'refunds', foreignKey: 'parent_transaction_id' });
 
-// Transactions' trigger Polymorphism, one-sided only
+// transactions' trigger Polymorphism, one-sided only
 // Transaction.belongsTo(Invoice, { foreignKey: 'trigger_id', constraints: false });
 
 // Refund model relationships
